@@ -1,0 +1,36 @@
+{
+  "name": "eslint-plugin-backpack",
+  "version": "0.0.0",
+  "description": "ESlint configuration for awesome Backpack development.",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin"
+  ],
+  "author": "Backpack Design System <backpack@skyscanner.net>",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Skyscanner/eslint-plugin-backpack.git"
+  },
+  "scripts": {
+    "pretest": "eslint .",
+    "test": "mocha src/**/*.test.js"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "bpk-tokens": "^27.0.0",
+    "lodash": "^4.17.10",
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-skyscanner": "^3.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2",
+    "mocha": "^5.1.1"
+  }
+}
