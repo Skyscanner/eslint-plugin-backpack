@@ -15,7 +15,8 @@
   },
   "scripts": {
     "pretest": "eslint .",
-    "test": "mocha src/**/*.test.js"
+    "test": "mocha src/**/*.test.js",
+    "publish": "np"
   },
   "license": "Apache-2.0",
   "dependencies": {
@@ -27,10 +28,12 @@
     "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-config-skyscanner": "^3.0.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
-    "mocha": "^5.1.1"
+    "mocha": "^5.1.1",
+    "np": "^3.0.4"
   }
 }
