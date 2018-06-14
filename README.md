@@ -1,8 +1,8 @@
 # eslint-plugin-backpack
 
-backpack all the thingz
+[![Build Status](https://travis-ci.org/Skyscanner/eslint-plugin-backpack.svg?branch=master)](https://travis-ci.org/Skyscanner/eslint-plugin-backpack/)
 
-## Installation
+Eslint plugin to prevent magic arbitrary values and promote the use of Backpack tokens
 
 You'll first need to install [ESLint](http://eslint.org):
 
@@ -24,28 +24,20 @@ Add `backpack` to the plugins section of your `.eslintrc` configuration file. Yo
 
 ```json
 {
-    "plugins": [
-        "backpack"
-    ]
+  "plugins": ["backpack"]
 }
 ```
-
 
 Then configure the rules you want to use under the rules section.
 
 ```json
 {
-    "rules": {
-        "backpack/rule-name": 2
-    }
+  "rules": {
+    "backpack/rule-name": 2
+  }
 }
 ```
 
 ## Supported Rules
 
-* Fill in provided rules here
-
-
-
-
-
+- `use-tokens` available just for colors (for now) will prevent the use of a hardcoded color if a Backpack token is available for the given value.
