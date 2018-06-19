@@ -20,28 +20,33 @@ const _ = require('lodash');
 const tinycolor = require('tinycolor2');
 const {props: TOKENS} = require('bpk-tokens/tokens/base.raw.json');
 
-const COLOR_PROPS = ['color', 'backgroundColor'];
+const COLOR_PROPS = [
+  'color',
+  'backgroundColor',
+];
 
-const COLORS = _.filter(TOKENS, {category: 'colors'}).map(({name, value}) => ({
-  name: _.camelCase(name),
-  value,
-}));
+const COLORS = _.filter(TOKENS, { category: 'colors' })
+  .map(({ name, value }) => ({ name: _.camelCase(name), value }));
 
 module.exports = context => ({
-  ObjectExpression: node => {
-    node.properties.forEach(({key, value}) => {
-      if (COLOR_PROPS.includes(key.name) && value.type === 'Literal') {
-        const color = tinycolor(value.value);
+  meta: {
+    fixable: 'code',
+  },
+  Property: (node) => {
+    const { key, value } = node;
 
-        const expectedToken = _.find(COLORS, {value: color.toRgbString()});
+    if (COLOR_PROPS.includes(key.name) && value.type === 'Literal') {
+      const color = tinycolor(value.value);
 
-        if (expectedToken) {
-          context.report(
-            node,
-            `Use the following Backpack token instead: ${expectedToken.name}`,
-          );
-        }
+      const expectedToken = _.find(COLORS, { value: color.toRgbString() });
+
+      if (expectedToken) {
+        context.report({
+          node,
+          message: `Use the following Backpack token instead: ${expectedToken.name}`,
+          fix: fixer => fixer.replaceText(value, expectedToken.name),
+        });
       }
-    });
+    }
   },
 });
