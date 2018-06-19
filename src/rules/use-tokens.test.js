@@ -20,7 +20,7 @@ const {RuleTester} = require('eslint');
 
 const useTokens = require('./use-tokens');
 
-const ruleTester = new RuleTester({parserOptions: {ecmaVersion: 2015}});
+const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2015 } });
 
 ruleTester.run('use-tokens', useTokens, {
   valid: [
@@ -47,11 +47,14 @@ ruleTester.run('use-tokens', useTokens, {
           color: '#ffffff',
         },
       });`,
-      errors: [
-        {
-          message: 'Use the following Backpack token instead: colorWhite',
+      output: `const styles = StyleSheet.create({
+        foo: {
+          color: colorWhite,
         },
-      ],
+      });`,
+      errors: [{
+        message: 'Use the following Backpack token instead: colorWhite',
+      }],
     },
     {
       code: `const styles = StyleSheet.create({
@@ -59,11 +62,14 @@ ruleTester.run('use-tokens', useTokens, {
           backgroundColor: '#ffffff',
         },
       });`,
-      errors: [
-        {
-          message: 'Use the following Backpack token instead: colorWhite',
+      output: `const styles = StyleSheet.create({
+        foo: {
+          backgroundColor: colorWhite,
         },
-      ],
+      });`,
+      errors: [{
+        message: 'Use the following Backpack token instead: colorWhite',
+      }],
     },
     {
       code: `const styles = StyleSheet.create({
@@ -71,11 +77,14 @@ ruleTester.run('use-tokens', useTokens, {
           color: 'rgb(0, 178, 214)',
         },
       });`,
-      errors: [
-        {
-          message: 'Use the following Backpack token instead: colorBlue500',
+      output: `const styles = StyleSheet.create({
+        foo: {
+          color: colorBlue500,
         },
-      ],
+      });`,
+      errors: [{
+        message: 'Use the following Backpack token instead: colorBlue500',
+      }],
     },
   ],
 });
