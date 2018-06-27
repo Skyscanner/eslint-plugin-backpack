@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-const {RuleTester} = require('eslint');
+const { RuleTester } = require('eslint');
 
 const useTokens = require('./use-tokens');
 
@@ -39,6 +39,11 @@ ruleTester.run('use-tokens', useTokens, {
         backgroundColor: colorWhite,
       },
     });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        marginLeft: spacingSm,
+      },
+    });`,
   ],
   invalid: [
     {
@@ -52,9 +57,11 @@ ruleTester.run('use-tokens', useTokens, {
           color: colorWhite,
         },
       });`,
-      errors: [{
-        message: 'Use the following Backpack token instead: colorWhite',
-      }],
+      errors: [
+        {
+          message: 'Use the following Backpack token instead: colorWhite',
+        },
+      ],
     },
     {
       code: `const styles = StyleSheet.create({
@@ -67,9 +74,11 @@ ruleTester.run('use-tokens', useTokens, {
           backgroundColor: colorWhite,
         },
       });`,
-      errors: [{
-        message: 'Use the following Backpack token instead: colorWhite',
-      }],
+      errors: [
+        {
+          message: 'Use the following Backpack token instead: colorWhite',
+        },
+      ],
     },
     {
       code: `const styles = StyleSheet.create({
@@ -82,9 +91,37 @@ ruleTester.run('use-tokens', useTokens, {
           color: colorBlue500,
         },
       });`,
-      errors: [{
-        message: 'Use the following Backpack token instead: colorBlue500',
-      }],
+      errors: [
+        {
+          message: 'Use the following Backpack token instead: colorBlue500',
+        },
+      ],
+    },
+    {
+      code: `const styles = StyleSheet.create({
+        foo: {
+          marginLeft: 4,
+        },
+      });`,
+      errors: [
+        {
+          message:
+            "Don't use raw numbers for `marginLeft` instead use a Backpack token or multiples of a token",
+        },
+      ],
+    },
+    {
+      code: `const styles = StyleSheet.create({
+        foo: {
+          borderBottomStartRadius: 4,
+        },
+      });`,
+      errors: [
+        {
+          message:
+            "Don't use raw numbers for `borderBottomStartRadius` instead use a Backpack token or multiples of a token",
+        },
+      ],
     },
   ],
 });
