@@ -44,6 +44,41 @@ ruleTester.run('use-tokens', useTokens, {
         marginLeft: spacingSm,
       },
     });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        borderBottomStartRadius: spacingSm,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        borderBottomStartRadius: 0,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        marginLeft: spacingSm * 4,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        marginLeft: spacingSm * 5 * 3,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        marginLeft: (spacingSm * 5) * spacingBase,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        marginLeft: bar * 5,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        marginLeft: myMargin() * 5,
+      },
+    });`,
   ],
   invalid: [
     {
@@ -63,6 +98,7 @@ ruleTester.run('use-tokens', useTokens, {
         },
       ],
     },
+
     {
       code: `const styles = StyleSheet.create({
         foo: {
@@ -80,6 +116,7 @@ ruleTester.run('use-tokens', useTokens, {
         },
       ],
     },
+
     {
       code: `const styles = StyleSheet.create({
         foo: {
@@ -97,6 +134,7 @@ ruleTester.run('use-tokens', useTokens, {
         },
       ],
     },
+
     {
       code: `const styles = StyleSheet.create({
         foo: {
@@ -110,6 +148,7 @@ ruleTester.run('use-tokens', useTokens, {
         },
       ],
     },
+
     {
       code: `const styles = StyleSheet.create({
         foo: {
@@ -120,6 +159,20 @@ ruleTester.run('use-tokens', useTokens, {
         {
           message:
             "Don't use raw numbers for `borderBottomStartRadius` instead use a Backpack token or multiples of a token",
+        },
+      ],
+    },
+
+    {
+      code: `const styles = StyleSheet.create({
+        foo: {
+          marginLeft: spacingSm * 4 + 4,
+        },
+      });`,
+      errors: [
+        {
+          message:
+            "Don't use raw numbers for `marginLeft` instead use a Backpack token or multiples of a token",
         },
       ],
     },
