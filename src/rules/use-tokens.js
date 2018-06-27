@@ -21,7 +21,7 @@ const { props: WEB_TOKENS } = require('bpk-tokens/tokens/base.raw.json');
 const { props: IOS_TOKENS } = require('bpk-tokens/tokens/base.raw.ios.json');
 const {
   props: ANDROID_TOKENS,
-} = require('bpk-tokens/tokens/base.raw.ios.json');
+} = require('bpk-tokens/tokens/base.raw.android.json');
 
 const COLOR_PROPS = ['color', 'backgroundColor'];
 

@@ -79,6 +79,21 @@ ruleTester.run('use-tokens', useTokens, {
         marginLeft: myMargin() * 5,
       },
     });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        marginLeft: spacingSm + spacingSm,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        paddingHorizontal: spacingMd - borderSizeSm,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        minHeight: spacingBase * 3,
+      },
+    });`,
   ],
   invalid: [
     {
@@ -167,6 +182,34 @@ ruleTester.run('use-tokens', useTokens, {
       code: `const styles = StyleSheet.create({
         foo: {
           marginLeft: spacingSm * 4 + 4,
+        },
+      });`,
+      errors: [
+        {
+          message:
+            "Don't use raw numbers for `marginLeft` instead use a Backpack token or multiples of a token",
+        },
+      ],
+    },
+
+    {
+      code: `const styles = StyleSheet.create({
+        foo: {
+          marginLeft: spacingSm * 4 + spacingBase + 2,
+        },
+      });`,
+      errors: [
+        {
+          message:
+            "Don't use raw numbers for `marginLeft` instead use a Backpack token or multiples of a token",
+        },
+      ],
+    },
+
+    {
+      code: `const styles = StyleSheet.create({
+        foo: {
+          marginLeft: 5 * 4,
         },
       });`,
       errors: [
