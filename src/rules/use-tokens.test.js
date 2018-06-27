@@ -94,6 +94,11 @@ ruleTester.run('use-tokens', useTokens, {
         minHeight: spacingBase * 3,
       },
     });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        borderRadius: borderRadiusSm,
+      },
+    });`,
   ],
   invalid: [
     {
@@ -216,6 +221,34 @@ ruleTester.run('use-tokens', useTokens, {
         {
           message:
             "Don't use raw numbers for `marginLeft` instead use a Backpack token or multiples of a token",
+        },
+      ],
+    },
+
+    {
+      code: `const styles = StyleSheet.create({
+        foo: {
+          borderRadius: borderRadiusSm + 2,
+        },
+      });`,
+      errors: [
+        {
+          message:
+            "Don't use raw numbers for `borderRadius` instead use a Backpack token or multiples of a token",
+        },
+      ],
+    },
+
+    {
+      code: `const styles = StyleSheet.create({
+        foo: {
+          borderWidth: borderSizeSm + 2,
+        },
+      });`,
+      errors: [
+        {
+          message:
+            "Don't use raw numbers for `borderWidth` instead use a Backpack token or multiples of a token",
         },
       ],
     },

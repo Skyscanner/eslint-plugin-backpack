@@ -38,13 +38,16 @@ const RADII_PROPS = [
   'borderTopStartRadius',
 ];
 
-const SPACING_PROPS = [
+const BORDER_PROPS = [
   'borderEndWidth',
   'borderLeftWidth',
   'borderRightWidth',
   'borderStartWidth',
   'borderTopWidth',
   'borderWidth',
+];
+
+const SPACING_PROPS = [
   'bottom',
   'end',
   'height',
@@ -94,6 +97,8 @@ const tokensByCategory = category =>
 
 const COLORS = tokensByCategory('colors');
 const SPACING_NAMES = new Set(tokensByCategory('spacings').map(x => x.name));
+const RADII_NAMES = new Set(tokensByCategory('radii').map(x => x.name));
+const BORDER_NAMES = new Set(tokensByCategory('borders').map(x => x.name));
 
 const checkColor = (node, context) => {
   const { key, value } = node;
@@ -121,8 +126,15 @@ const checkColor = (node, context) => {
 const isLiteralNumber = node =>
   node.type === 'Literal' && typeof node.value === 'number';
 
-const isSpacingIdentifier = node =>
-  node.type === 'Identifier' && SPACING_NAMES.has(node.name);
+/*
+ * Check if the node is an identifier and a known Backpack lengt
+ * token.
+ */
+const isLengthIdentifier = node =>
+  node.type === 'Identifier' &&
+  (SPACING_NAMES.has(node.name) ||
+    RADII_NAMES.has(node.name) ||
+    BORDER_NAMES.has(node.name));
 
 /*
  * Ensures that a complex expression i.e. not a literal is a
@@ -132,7 +144,7 @@ const isSpacingIdentifier = node =>
  *
  * Returns a tri-state bool i.e. true | false | null.
  */
-const isValidComplexSpacingExpression = node => {
+const isValidComplexLengthExpression = node => {
   if (node.type !== 'BinaryExpression') {
     return null;
   }
@@ -140,8 +152,8 @@ const isValidComplexSpacingExpression = node => {
   const leftIsLiteralNumber = isLiteralNumber(node.left);
   const rightIsLiteralNumber = isLiteralNumber(node.right);
 
-  const leftIsSpacingIdentifier = isSpacingIdentifier(node.left);
-  const rightIsSpacingIdentifier = isSpacingIdentifier(node.right);
+  const leftIsLengthIdentifier = isLengthIdentifier(node.left);
+  const rightIsLengthIdentifier = isLengthIdentifier(node.right);
 
   // {NUMBER} {OPERATOR} {NUMBER} is invalid regardless of operator
   if (leftIsLiteralNumber && rightIsLiteralNumber) {
@@ -151,27 +163,27 @@ const isValidComplexSpacingExpression = node => {
   // {TOKEN} {OPERATOR} {NUMBER} or {NUMBER} {OPERATOR} {TOKEN}
   // Multiples of tokens are valid while any other {OPERATOR} is not
   if (
-    (leftIsLiteralNumber && rightIsSpacingIdentifier) ||
-    (rightIsLiteralNumber && leftIsSpacingIdentifier)
+    (leftIsLiteralNumber && rightIsLengthIdentifier) ||
+    (rightIsLiteralNumber && leftIsLengthIdentifier)
   ) {
     return node.operator === '*';
   }
 
   const leftIsSupportedType =
     leftIsLiteralNumber ||
-    leftIsSpacingIdentifier ||
+    leftIsLengthIdentifier ||
     node.left.type === 'BinaryExpression';
   const rightIsSupportedType =
     rightIsLiteralNumber ||
-    rightIsSpacingIdentifier ||
+    rightIsLengthIdentifier ||
     node.right.type === 'BinaryExpression';
 
   if (!(leftIsSupportedType && rightIsSupportedType)) {
     return null;
   }
 
-  const leftIsValid = isValidComplexSpacingExpression(node.left);
-  const rightIsValid = isValidComplexSpacingExpression(node.right);
+  const leftIsValid = isValidComplexLengthExpression(node.left);
+  const rightIsValid = isValidComplexLengthExpression(node.right);
 
   if (leftIsValid === null && rightIsValid === null) {
     return null;
@@ -189,12 +201,14 @@ const isValidComplexSpacingExpression = node => {
   return leftIsValid && rightIsValid;
 };
 
-const checkSpacing = (node, context) => {
+const checkLengths = (node, context) => {
   const { key, value } = node;
-  const isSpacing =
-    SPACING_PROPS.includes(key.name) || RADII_PROPS.includes(key.name);
+  const isLength =
+    SPACING_PROPS.includes(key.name) ||
+    RADII_PROPS.includes(key.name) ||
+    BORDER_PROPS.includes(key.name);
 
-  if (!isSpacing) {
+  if (!isLength) {
     return;
   }
 
@@ -211,7 +225,7 @@ const checkSpacing = (node, context) => {
     });
   }
 
-  const isValid = isValidComplexSpacingExpression(value);
+  const isValid = isValidComplexLengthExpression(value);
 
   // Explicitly check for false because `null` indicates that we don't know if it's valid
   if (isValid === false) {
@@ -230,6 +244,6 @@ module.exports = context => ({
   },
   Property: node => {
     checkColor(node, context);
-    checkSpacing(node, context);
+    checkLengths(node, context);
   },
 });
