@@ -40,4 +40,33 @@ Then configure the rules you want to use under the rules section.
 
 ## Supported Rules
 
-- `use-tokens` available just for colors (for now) will prevent the use of a hardcoded color if a Backpack token is available for the given value.
+### use-tokens
+
+Available just for colors (for now) will prevent the use of a hardcoded color if a Backpack token is available for the given value.
+
+### auto-import-tokens
+
+Will prevent undefined tokens (same as no-undef) and auto import them when `--fix` is provided.
+
+#### Configuration
+
+| Name          | Type                                   | Required    |
+| ------------- | -------------------------------------- | ----------- |
+| platform      | string                                 | false       |
+| tokensPackage | shape({ web: string, native: string }) | false       |
+| typeof        | boolean                                | false       |
+
+```json
+{
+  "rules": {
+    "backpack/auto-import-tokens": [2, {
+      "typeof": false,
+      "platform": "web",
+      "tokensPackage": {
+        "web": "bpk-tokens/tokens/base.es6",
+        "native": "bpk-tokens/tokens/base.react.native",
+      },
+    }]
+  }
+}
+```

@@ -17,9 +17,11 @@
  */
 
 const useTokens = require('./src/rules/use-tokens');
+const autoImportTokens = require('./src/rules/auto-import-tokens');
 
 module.exports = {
   rules: {
     'use-tokens': useTokens,
+    'auto-import-tokens': autoImportTokens,
   },
 };
