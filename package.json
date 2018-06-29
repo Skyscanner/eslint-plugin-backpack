@@ -14,7 +14,7 @@
     "url": "git@github.com:Skyscanner/eslint-plugin-backpack.git"
   },
   "scripts": {
-    "pretest": "eslint .",
+    "lint": "eslint .",
     "test": "mocha src/**/*.test.js",
     "publish": "np"
   },
@@ -32,8 +32,11 @@
     "eslint-config-skyscanner": "^3.0.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.6.1",
     "eslint-plugin-react": "^7.8.2",
+    "eslint_d": "^5.3.1",
     "mocha": "^5.1.1",
-    "np": "^3.0.4"
+    "np": "^3.0.4",
+    "prettier": "^1.13.6"
   }
 }
