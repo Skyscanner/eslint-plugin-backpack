@@ -42,7 +42,7 @@ Then configure the rules you want to use under the rules section.
 
 ### use-tokens
 
-Available just for colors (for now) will prevent the use of a hardcoded color if a Backpack token is available for the given value.
+Available for colours and length values. Will prevent the use of a hardcoded colour if a Backpack token is available for the given value.
 
 ### auto-import-tokens
 
