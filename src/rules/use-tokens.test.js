@@ -99,6 +99,11 @@ ruleTester.run('use-tokens', useTokens, {
         borderRadius: borderRadiusSm,
       },
     });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        minHeight: spacingBase / 2,
+      },
+    });`,
   ],
   invalid: [
     {

@@ -166,7 +166,7 @@ const isValidComplexLengthExpression = node => {
     (leftIsLiteralNumber && rightIsLengthIdentifier) ||
     (rightIsLiteralNumber && leftIsLengthIdentifier)
   ) {
-    return node.operator === '*';
+    return node.operator === '*' || node.operator === '/';
   }
 
   const leftIsSupportedType =
