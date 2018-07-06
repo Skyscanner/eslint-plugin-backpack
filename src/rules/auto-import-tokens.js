@@ -67,8 +67,8 @@ const addNewImport = (fixer, identifier, scope, tokensPkg, startRange) => {
   }
 };
 
-module.exports = context => {
-  const options = merge(BASE_CONFIG, context.options[0] || {});
+module.exports = ({ getScope, report, options: userOptions }) => {
+  const options = merge(BASE_CONFIG, userOptions[0] || {});
   const tokensPkg = options.tokensPackage[options.platform];
 
   return {
@@ -103,7 +103,7 @@ module.exports = context => {
     },
 
     'Program:exit': node => {
-      const globalScope = context.getScope();
+      const globalScope = getScope();
       const fixed = {};
 
       const startRange =
@@ -117,7 +117,7 @@ module.exports = context => {
           return;
         }
 
-        context.report({
+        report({
           node: identifier,
           message: "'{{name}}' token is not defined.",
           data: identifier,
