@@ -68,7 +68,7 @@ const addNewImport = (fixer, identifier, scope, tokensPkg, startRange) => {
 };
 
 module.exports = ({ getScope, report, options: userOptions }) => {
-  const options = merge(BASE_CONFIG, userOptions[0] || {});
+  const options = merge({}, BASE_CONFIG, userOptions[0] || {});
   const tokensPkg = options.tokensPackage[options.platform];
 
   return {
