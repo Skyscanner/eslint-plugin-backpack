@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
       options: [{ typeof: true }],
       code: `const foo = typeof colorWhite`,
       output: `
-import { colorWhite } from './web-tokens';
+import { colorWhite } from 'bpk-tokens/tokens/base.es6';
 const foo = typeof colorWhite`,
       errors: [
         {

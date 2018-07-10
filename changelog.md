@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Fixed
+
+- Fixed `auto-import-tokens` to correctly parse different configs for different folders. 
+
 ## 0.1.0 - Auto import and support for more tokens
 
 ### Added
