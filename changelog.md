@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 0.1.1 - Fixed `auto-import-tokens` to handle config correctly
+
 ### Fixed
 
 - Fixed `auto-import-tokens` to correctly parse different configs for different folders. 
