@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+
+- Removed `auto-import-tokens` rule and merged it as part of the `use-tokens` rule
+
 ## 0.1.1 - Fixed `auto-import-tokens` to handle config correctly
 
 ### Fixed
