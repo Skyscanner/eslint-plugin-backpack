@@ -68,3 +68,22 @@ Available for colours and length values. Will prevent the use of a hardcoded col
 }
 ```
 
+### use-components
+
+Available for native components initially. Will prevent the usage of native components when a backpack option is available.
+
+#### Configuration
+
+| Name          | Type                                   | Required    |
+| ------------- | -------------------------------------- | ----------- |
+| autoImport    | boolean                                | false       |
+
+```json
+{
+  "rules": {
+    "backpack/use-components": [2, {
+      "autoImport": true,
+    }]
+  }
+}
+```

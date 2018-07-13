@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Added `use-components' rule
+
+### Removed
+
 - Removed `auto-import-tokens` rule and merged it as part of the `use-tokens` rule
 
 ## 0.1.1 - Fixed `auto-import-tokens` to handle config correctly

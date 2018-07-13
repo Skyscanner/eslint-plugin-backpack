@@ -20,7 +20,7 @@ const { addImport, getImportDefinition } = require('./auto-import');
 
 // Dummy rule that executes the autoImport logic
 // for `dummy` and `extraDummy` variables.
-const dummyRule = ({ report }) => ({
+const dummyRule = ({ report, options }) => ({
   meta: {
     fixable: 'code',
   },
@@ -29,7 +29,11 @@ const dummyRule = ({ report }) => ({
       return;
     }
 
-    const def = getImportDefinition(node, node.value.name, 'dummy');
+    const style = (options[0] && options[0].style) || 'named';
+    const def = getImportDefinition(node, node.value.name, {
+      packageName: 'dummy',
+      style,
+    });
     if (def.isImported) {
       return;
     }
@@ -64,6 +68,17 @@ ruleTester.run('addImport', dummyRule, {
         color: extraDummy,
       },
     });`,
+    {
+      options: [{ style: 'default' }],
+      code: `
+        import dummy from 'dummy';
+
+        const styles = StyleSheet.create({
+          foo: {
+            color: dummy,
+          },
+        });`,
+    },
   ],
   invalid: [
     {
@@ -213,6 +228,52 @@ import utils from './utils';
 const styles = StyleSheet.create({
   foo: {
     color: dummy
+  },
+});`,
+      errors: [
+        {
+          message: `Don't do this`,
+        },
+      ],
+    },
+    {
+      options: [{ style: 'default' }],
+      code: `
+const styles = StyleSheet.create({
+  foo: {
+    color: dummy,
+  },
+});`,
+      output: `
+import dummy from 'dummy';
+
+const styles = StyleSheet.create({
+  foo: {
+    color: dummy,
+  },
+});`,
+      errors: [
+        {
+          message: `Don't do this`,
+        },
+      ],
+    },
+    {
+      options: [{ style: 'default' }],
+      code: `
+import { notSoDummy } from 'dummy';
+
+const styles = StyleSheet.create({
+  foo: {
+    color: dummy,
+  },
+});`,
+      output: `
+import dummy, { notSoDummy } from 'dummy';
+
+const styles = StyleSheet.create({
+  foo: {
+    color: dummy,
   },
 });`,
       errors: [
