@@ -16,8 +16,10 @@
  * limitations under the License.
  */
 
-const newImport = (range, identifier, packageName, addNewLine) => {
-  const importStatement = `import { ${identifier} } from '${packageName}';`;
+const newImport = (range, identifier, addNewLine, importConfig) => {
+  const { packageName, style } = importConfig;
+  const specifier = style === 'default' ? identifier : `{ ${identifier} }`;
+  const importStatement = `import ${specifier} from '${packageName}';`;
   const textToInsert = `\n${importStatement}${addNewLine ? '\n' : ''}`;
   return {
     isImported: false,
@@ -25,19 +27,28 @@ const newImport = (range, identifier, packageName, addNewLine) => {
   };
 };
 
-const existingImport = (importNode, identifier) => {
+const existingImport = (importNode, identifier, { style }) => {
   const location = importNode.loc;
   const isMultiLine = location.end.line - location.start.line > 0;
   const isImported = !!importNode.specifiers.find(
     ({ local }) => local.name === identifier,
   );
-  const textToInsert = `${identifier},${isMultiLine ? '\n' : ' '}`;
+
+  const textToInsert =
+    style === 'default'
+      ? `${identifier}${importNode.specifiers.length > 0 ? ', ' : ''}`
+      : `${identifier},${isMultiLine ? '\n' : ' '}`;
 
   return {
     isImported,
     fix(fixer) {
       if (isImported) {
         return null;
+      }
+
+      if (style === 'default') {
+        const range = [importNode.start + 6, importNode.start + 7];
+        return fixer.insertTextAfterRange(range, textToInsert);
       }
       // TODO: should we care about identation?
       // put first to avoid any problems with trailing commas
@@ -49,7 +60,7 @@ const existingImport = (importNode, identifier) => {
 const findProgramNode = node =>
   node.type !== 'Program' ? findProgramNode(node.parent) : node;
 
-const findImportNode = (program, packageName) => {
+const findImportNode = (program, { packageName }) => {
   for (let i = 0; ; i += 1) {
     const currNode = program.body[i];
 
@@ -63,7 +74,7 @@ const findImportNode = (program, packageName) => {
   }
 };
 
-const getNewImport = (program, identifier, packageName) => {
+const getNewImport = (program, identifier, importConfig) => {
   const startRange =
     program.comments && program.comments.length
       ? program.comments[program.comments.length - 1].range
@@ -76,23 +87,23 @@ const getNewImport = (program, identifier, packageName) => {
     if (currNode.type !== 'ImportDeclaration') {
       const range = i === 0 ? startRange : program.body[i - 1].range;
       const hasImports = program.body[0].type === 'ImportDeclaration';
-      return newImport(range, identifier, packageName, !hasImports);
+      return newImport(range, identifier, !hasImports, importConfig);
     }
 
     if (currNode.source.value.indexOf('.') === 0) {
       const range = i === 0 ? startRange : program.body[i - 1].range;
-      return newImport(range, identifier, packageName, false);
+      return newImport(range, identifier, false, importConfig);
     }
   }
 };
 
 module.exports = {
-  getImportDefinition(node, identifier, packageName) {
+  getImportDefinition(node, identifier, importConfig) {
     const program = findProgramNode(node);
-    const importNode = findImportNode(program, packageName);
+    const importNode = findImportNode(program, importConfig);
     return importNode
-      ? existingImport(importNode, identifier)
-      : getNewImport(program, identifier, packageName);
+      ? existingImport(importNode, identifier, importConfig)
+      : getNewImport(program, identifier, importConfig);
   },
   addImport: (fixer, importDefinition) => importDefinition.fix(fixer),
 };

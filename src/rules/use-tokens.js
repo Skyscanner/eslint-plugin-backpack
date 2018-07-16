@@ -133,13 +133,16 @@ const checkColor = (node, context) => {
         const options = _.merge({}, BASE_CONFIG, userOptions[0] || {});
         const tokensPkg = options.tokensPackage[options.platform];
 
-        const importDefinition = getImportDefinition(
-          node,
-          expectedToken.name,
-          tokensPkg,
-        );
+        if (!options.autoImport) {
+          return fixer.replaceText(value, expectedToken.name);
+        }
 
-        if (importDefinition.isImported || !options.autoImport) {
+        const importDefinition = getImportDefinition(node, expectedToken.name, {
+          packageName: tokensPkg,
+          style: 'named',
+        });
+
+        if (importDefinition.isImported) {
           return fixer.replaceText(value, expectedToken.name);
         }
 
