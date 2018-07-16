@@ -7,13 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 0.2.0 - Removed `auto-import-tokens` rule and added `use-components` rule
+
 ### Added
 
-- Added `use-components' rule
+- Added `use-components' rule.
 
 ### Removed
 
-- Removed `auto-import-tokens` rule and merged it as part of the `use-tokens` rule
+- Removed `auto-import-tokens` rule and merged it as part of the `use-tokens` rule.
 
 ## 0.1.1 - Fixed `auto-import-tokens` to handle config correctly
 
