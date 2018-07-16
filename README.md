@@ -44,14 +44,11 @@ Then configure the rules you want to use under the rules section.
 
 Available for colours and length values. Will prevent the use of a hardcoded colour if a Backpack token is available for the given value.
 
-### auto-import-tokens
-
-Will prevent undefined tokens (same as no-undef) and auto import them when `--fix` is provided.
-
 #### Configuration
 
 | Name          | Type                                   | Required    |
 | ------------- | -------------------------------------- | ----------- |
+| autoImport    | boolean                                | false       |
 | platform      | string                                 | false       |
 | tokensPackage | shape({ web: string, native: string }) | false       |
 | typeof        | boolean                                | false       |
@@ -59,8 +56,8 @@ Will prevent undefined tokens (same as no-undef) and auto import them when `--fi
 ```json
 {
   "rules": {
-    "backpack/auto-import-tokens": [2, {
-      "typeof": false,
+    "backpack/use-tokens": [2, {
+      "autoImport": true,
       "platform": "web",
       "tokensPackage": {
         "web": "bpk-tokens/tokens/base.es6",
@@ -70,3 +67,4 @@ Will prevent undefined tokens (same as no-undef) and auto import them when `--fi
   }
 }
 ```
+

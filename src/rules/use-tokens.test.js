@@ -102,16 +102,20 @@ ruleTester.run('use-tokens', useTokens, {
   ],
   invalid: [
     {
-      code: `const styles = StyleSheet.create({
-        foo: {
-          color: '#ffffff',
-        },
-      });`,
-      output: `const styles = StyleSheet.create({
-        foo: {
-          color: colorWhite,
-        },
-      });`,
+      code: `
+const styles = StyleSheet.create({
+  foo: {
+    color: '#ffffff',
+  },
+});`,
+      output: `
+import { colorWhite } from 'bpk-tokens/tokens/base.es6';
+
+const styles = StyleSheet.create({
+  foo: {
+    color: colorWhite,
+  },
+});`,
       errors: [
         {
           message: 'Use the following Backpack token instead: colorWhite',
@@ -120,16 +124,20 @@ ruleTester.run('use-tokens', useTokens, {
     },
 
     {
-      code: `const styles = StyleSheet.create({
-        foo: {
-          backgroundColor: '#ffffff',
-        },
-      });`,
-      output: `const styles = StyleSheet.create({
-        foo: {
-          backgroundColor: colorWhite,
-        },
-      });`,
+      code: `
+const styles = StyleSheet.create({
+  foo: {
+    backgroundColor: '#ffffff',
+  },
+});`,
+      output: `
+import { colorWhite } from 'bpk-tokens/tokens/base.es6';
+
+const styles = StyleSheet.create({
+  foo: {
+    backgroundColor: colorWhite,
+  },
+});`,
       errors: [
         {
           message: 'Use the following Backpack token instead: colorWhite',
@@ -138,16 +146,87 @@ ruleTester.run('use-tokens', useTokens, {
     },
 
     {
-      code: `const styles = StyleSheet.create({
-        foo: {
-          color: 'rgb(0, 178, 214)',
+      code: `
+const styles = StyleSheet.create({
+  foo: {
+    color: 'rgb(0, 178, 214)',
+  },
+});`,
+      output: `
+import { colorBlue500 } from 'bpk-tokens/tokens/base.es6';
+
+const styles = StyleSheet.create({
+  foo: {
+    color: colorBlue500,
+  },
+});`,
+      errors: [
+        {
+          message: 'Use the following Backpack token instead: colorBlue500',
         },
-      });`,
-      output: `const styles = StyleSheet.create({
-        foo: {
-          color: colorBlue500,
+      ],
+    },
+
+    {
+      options: [{ autoImport: false }],
+      code: `
+const styles = StyleSheet.create({
+  foo: {
+    color: 'rgb(0, 178, 214)',
+  },
+});`,
+      output: `
+const styles = StyleSheet.create({
+  foo: {
+    color: colorBlue500,
+  },
+});`,
+      errors: [
+        {
+          message: 'Use the following Backpack token instead: colorBlue500',
         },
-      });`,
+      ],
+    },
+
+    {
+      options: [{ platform: 'native' }],
+      code: `
+const styles = StyleSheet.create({
+  foo: {
+    color: 'rgb(0, 178, 214)',
+  },
+});`,
+      output: `
+import { colorBlue500 } from 'bpk-tokens/tokens/base.react.native';
+
+const styles = StyleSheet.create({
+  foo: {
+    color: colorBlue500,
+  },
+});`,
+      errors: [
+        {
+          message: 'Use the following Backpack token instead: colorBlue500',
+        },
+      ],
+    },
+
+    {
+      options: [{ platform: 'native', tokensPackage: { native: './tokens' } }],
+      code: `
+const styles = StyleSheet.create({
+  foo: {
+    color: 'rgb(0, 178, 214)',
+  },
+});`,
+      output: `
+import { colorBlue500 } from './tokens';
+
+const styles = StyleSheet.create({
+  foo: {
+    color: colorBlue500,
+  },
+});`,
       errors: [
         {
           message: 'Use the following Backpack token instead: colorBlue500',

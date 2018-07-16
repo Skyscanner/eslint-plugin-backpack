@@ -22,6 +22,16 @@ const { props: IOS_TOKENS } = require('bpk-tokens/tokens/base.raw.ios.json');
 const {
   props: ANDROID_TOKENS,
 } = require('bpk-tokens/tokens/base.raw.android.json');
+const { addImport, getImportDefinition } = require('../auto-import');
+
+const BASE_CONFIG = {
+  autoImport: true,
+  platform: 'web',
+  tokensPackage: {
+    web: 'bpk-tokens/tokens/base.es6',
+    native: 'bpk-tokens/tokens/base.react.native',
+  },
+};
 
 const COLOR_PROPS = ['color', 'backgroundColor'];
 
@@ -118,7 +128,26 @@ const checkColor = (node, context) => {
       message: `Use the following Backpack token instead: ${
         expectedToken.name
       }`,
-      fix: fixer => fixer.replaceText(value, expectedToken.name),
+      fix: fixer => {
+        const { options: userOptions } = context;
+        const options = _.merge({}, BASE_CONFIG, userOptions[0] || {});
+        const tokensPkg = options.tokensPackage[options.platform];
+
+        const importDefinition = getImportDefinition(
+          node,
+          expectedToken.name,
+          tokensPkg,
+        );
+
+        if (importDefinition.isImported || !options.autoImport) {
+          return fixer.replaceText(value, expectedToken.name);
+        }
+
+        return [
+          addImport(fixer, importDefinition),
+          fixer.replaceText(value, expectedToken.name),
+        ];
+      },
     });
   }
 };
@@ -241,6 +270,32 @@ const checkLengths = (node, context) => {
 module.exports = context => ({
   meta: {
     fixable: 'code',
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          autoImport: {
+            type: 'boolean',
+          },
+          platform: {
+            type: 'string',
+          },
+          tokensPackage: {
+            type: 'object',
+            properties: {
+              web: {
+                type: 'string',
+              },
+              native: {
+                type: 'string',
+              },
+            },
+            additionalProperties: false,
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
   },
   Property: node => {
     checkColor(node, context);

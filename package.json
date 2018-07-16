@@ -15,7 +15,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha src/**/*.test.js",
+    "test": "mocha src/*.test.js src/**/*.test.js",
     "publish": "np"
   },
   "license": "Apache-2.0",
