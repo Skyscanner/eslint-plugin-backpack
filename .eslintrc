@@ -1,8 +1,5 @@
 {
-  "extends": ["skyscanner", "prettier"],
-  "plugins": [
-    "prettier",
-  ],
+  "extends": ["skyscanner-with-prettier"],
   "rules": {
     "prettier/prettier": "error",
   }
