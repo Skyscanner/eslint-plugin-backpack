@@ -122,6 +122,23 @@ const styles = StyleSheet.create({
         },
       ],
     },
+    {
+      code: `
+const styles = StyleSheet.create({
+  foo: {
+    backgroundColor: '#ff00ff',
+    color: '#ff00ff',
+  },
+});`,
+      errors: [
+        {
+          message: 'Unknown color, use a Backpack token instead',
+        },
+        {
+          message: 'Unknown color, use a Backpack token instead',
+        },
+      ],
+    },
 
     {
       code: `

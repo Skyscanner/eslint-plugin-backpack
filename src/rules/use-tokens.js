@@ -152,6 +152,11 @@ const checkColor = (node, context) => {
         ];
       },
     });
+  } else {
+    context.report({
+      node,
+      message: `Unknown color, use a Backpack token instead`,
+    });
   }
 };
 
