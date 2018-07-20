@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-backpack",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "ESlint configuration for awesome Backpack development.",
   "keywords": [
     "eslint",
