@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 _Nothing Yet_
 
+## 0.2.2 - 2018-07-20 - Added no-unknown colors to `use-tokens`
+
+### Fixed
+ - Whitelist colour values `"transparent"`, `null` and `undefined`.
+
 ## 0.2.1 - 2018-07-20 - Added no-unknown colors to `use-tokens`
 
 ### Added
