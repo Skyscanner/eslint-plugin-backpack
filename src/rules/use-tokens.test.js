@@ -41,6 +41,21 @@ ruleTester.run('use-tokens', useTokens, {
     });`,
     `const styles = StyleSheet.create({
       foo: {
+        backgroundColor: 'transparent',
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        backgroundColor: null,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
+        backgroundColor: undefined,
+      },
+    });`,
+    `const styles = StyleSheet.create({
+      foo: {
         marginLeft: spacingSm,
       },
     });`,

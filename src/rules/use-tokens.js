@@ -33,6 +33,7 @@ const BASE_CONFIG = {
   },
 };
 
+const COLOR_WHITELIST = ['transparent', null, undefined];
 const COLOR_PROPS = ['color', 'backgroundColor'];
 
 const RADII_PROPS = [
@@ -153,6 +154,7 @@ const checkColor = (node, context) => {
       },
     });
   } else {
+    if (COLOR_WHITELIST.filter(c => value.value === c).length) return;
     context.report({
       node,
       message: `Unknown color, use a Backpack token instead`,
