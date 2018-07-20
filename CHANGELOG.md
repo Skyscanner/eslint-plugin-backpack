@@ -8,12 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 _Nothing Yet_
 
-## 0.2.1 - Added no-unknown colors to `use-tokens`
+## 0.2.1 - 2018-07-20 - Added no-unknown colors to `use-tokens`
 
 ### Added
  - Added error for unknow color when using `use-tokens` rule.
 
-## 0.2.0 - Removed `auto-import-tokens` rule and added `use-components` rule
+## 0.2.0 - 2018-07-16 - Removed `auto-import-tokens` rule and added `use-components` rule
 
 ### Added
 
@@ -23,20 +23,20 @@ _Nothing Yet_
 
 - Removed `auto-import-tokens` rule and merged it as part of the `use-tokens` rule.
 
-## 0.1.1 - Fixed `auto-import-tokens` to handle config correctly
+## 0.1.1 - 2018-07-10 - Fixed `auto-import-tokens` to handle config correctly
 
 ### Fixed
 
 - Fixed `auto-import-tokens` to correctly parse different configs for different folders.
 
-## 0.1.0 - Auto import and support for more tokens
+## 0.1.0 - 2018-07-03 - Auto import and support for more tokens
 
 ### Added
 
 - Added `auto-import-tokens` rule.
 - `use-tokens` rule now works with lengths.
 
-## 0.0.1 - Initial release
+## 0.0.1 - 2018-06-14 - Initial release
 
 ### Added
 
