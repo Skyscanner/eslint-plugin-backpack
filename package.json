@@ -26,13 +26,8 @@
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.5",
-    "eslint": "^4.19.1",
-    "eslint-config-skyscanner-with-prettier": "^0.2.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.0",
-    "eslint-plugin-prettier": "^2.6.1",
-    "eslint-plugin-react": "^7.10.0",
+    "eslint": "^5.4.0",
+    "eslint-config-skyscanner-with-prettier": "^0.3.0",
     "eslint_d": "^6.0.0",
     "mocha": "^5.2.0"
   }
