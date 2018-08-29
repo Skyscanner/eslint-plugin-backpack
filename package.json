@@ -28,7 +28,7 @@
   "devDependencies": {
     "eslint": "^5.4.0",
     "eslint-config-skyscanner-with-prettier": "^0.3.0",
-    "eslint_d": "^6.0.0",
+    "eslint_d": "^7.1.0",
     "mocha": "^5.2.0"
   }
 }
