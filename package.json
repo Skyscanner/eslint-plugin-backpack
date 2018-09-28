@@ -13,8 +13,13 @@
     "type": "git",
     "url": "git@github.com:Skyscanner/eslint-plugin-backpack.git"
   },
+  "engines": {
+    "node": "^8.9.0",
+    "npm": "^6.4.1"
+  },
   "scripts": {
     "lint": "eslint .",
+    "pretest": "npx ensure-node-env",
     "test": "mocha src/*.test.js src/**/*.test.js",
     "lint:js:fix": "eslint . --ext js,jsx --fix",
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx}\""
