@@ -1,6 +1,8 @@
 {
-  "extends": ["skyscanner-with-prettier"],
+  "extends": [
+    "skyscanner-with-prettier"
+  ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": "error"
   }
 }

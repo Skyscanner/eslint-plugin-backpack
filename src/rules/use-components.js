@@ -16,6 +16,7 @@
  */
 
 const merge = require('lodash/merge');
+
 const { addImport, getImportDefinition } = require('../auto-import');
 
 const BPK_SUBSTITUTES = {
