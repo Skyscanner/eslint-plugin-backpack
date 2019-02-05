@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 const { RuleTester } = require('eslint');
+
 const { addImport, getImportDefinition } = require('./auto-import');
 
 // Dummy rule that executes the autoImport logic

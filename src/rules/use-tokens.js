@@ -22,6 +22,7 @@ const { props: IOS_TOKENS } = require('bpk-tokens/tokens/base.raw.ios.json');
 const {
   props: ANDROID_TOKENS,
 } = require('bpk-tokens/tokens/base.raw.android.json');
+
 const { addImport, getImportDefinition } = require('../auto-import');
 
 const BASE_CONFIG = {

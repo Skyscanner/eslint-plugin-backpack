@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
-_Nothing Yet_
+
+### Fixed
+ - Upgrade dependencies.
 
 ## 0.2.2 - 2018-07-20 - Fixed false-positives for accepted hardcoded color values
 
