@@ -34,6 +34,6 @@
     "eslint": "^5.13.0",
     "eslint-config-skyscanner-with-prettier": "^0.8.0",
     "eslint_d": "^7.2.0",
-    "mocha": "^5.2.0"
+    "mocha": "^6.0.0"
   }
 }
