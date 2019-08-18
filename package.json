@@ -31,7 +31,7 @@
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
-    "eslint": "^5.13.0",
+    "eslint": "^6.2.0",
     "eslint-config-skyscanner-with-prettier": "^0.8.0",
     "eslint_d": "^8.0.0",
     "mocha": "^6.0.0"
