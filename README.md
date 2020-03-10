@@ -1,6 +1,6 @@
 # eslint-plugin-backpack
 
-[![Build Status](https://travis-ci.org/Skyscanner/eslint-plugin-backpack.svg?branch=master)](https://travis-ci.org/Skyscanner/eslint-plugin-backpack/) [![Greenkeeper badge](https://badges.greenkeeper.io/Skyscanner/eslint-plugin-backpack.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/Skyscanner/eslint-plugin-backpack.svg?branch=master)](https://travis-ci.org/Skyscanner/eslint-plugin-backpack/) 
 
 Eslint plugin to prevent magic arbitrary values and promote the use of Backpack tokens
 
