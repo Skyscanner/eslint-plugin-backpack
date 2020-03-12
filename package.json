@@ -27,7 +27,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "bpk-tokens": "^27.4.7",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
