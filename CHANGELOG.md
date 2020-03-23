@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 0.3.0 - 2020-03-23 - Spring clean and upgrades
+
+### Fixed
+  - Upgraded to support Node 12
+  - Upgrade dependencies.
+
 _Nothing yet..._
 
 ## 0.2.3 - 2019-02-05 - Upgrade deps
