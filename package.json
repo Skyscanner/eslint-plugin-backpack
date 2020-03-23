@@ -26,13 +26,12 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "bpk-tokens": "^27.4.7",
+    "bpk-tokens": "^32.0.2",
     "lodash": "^4.17.15",
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
-    "eslint": "^5.13.0",
-    "eslint-config-skyscanner-with-prettier": "^0.8.0",
+    "eslint-config-skyscanner": "^5.2.0",
     "eslint_d": "^8.0.0",
     "mocha": "^7.0.1"
   }
