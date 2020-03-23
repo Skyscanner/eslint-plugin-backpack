@@ -31,7 +31,7 @@ ruleTester.run('use-tokens', useTokens, {
     });`,
     `const styles = StyleSheet.create({
       foo: {
-        color: colorBlue500,
+        color: colorSkyBlue,
       },
     });`,
     `const styles = StyleSheet.create({
@@ -181,20 +181,21 @@ const styles = StyleSheet.create({
       code: `
 const styles = StyleSheet.create({
   foo: {
-    color: 'rgb(0, 178, 214)',
+    color: 'rgb(7, 112, 227)',
   },
 });`,
       output: `
-import { colorBlue500 } from 'bpk-tokens/tokens/base.es6';
+import { colorPrimaryGradientLight } from 'bpk-tokens/tokens/base.es6';
 
 const styles = StyleSheet.create({
   foo: {
-    color: colorBlue500,
+    color: colorPrimaryGradientLight,
   },
 });`,
       errors: [
         {
-          message: 'Use the following Backpack token instead: colorBlue500',
+          message:
+            'Use the following Backpack token instead: colorPrimaryGradientLight',
         },
       ],
     },
@@ -204,18 +205,19 @@ const styles = StyleSheet.create({
       code: `
 const styles = StyleSheet.create({
   foo: {
-    color: 'rgb(0, 178, 214)',
+    color: 'rgb(7, 112, 227)',
   },
 });`,
       output: `
 const styles = StyleSheet.create({
   foo: {
-    color: colorBlue500,
+    color: colorPrimaryGradientLight,
   },
 });`,
       errors: [
         {
-          message: 'Use the following Backpack token instead: colorBlue500',
+          message:
+            'Use the following Backpack token instead: colorPrimaryGradientLight',
         },
       ],
     },
@@ -225,20 +227,21 @@ const styles = StyleSheet.create({
       code: `
 const styles = StyleSheet.create({
   foo: {
-    color: 'rgb(0, 178, 214)',
+    color: 'rgb(7, 112, 227)',
   },
 });`,
       output: `
-import { colorBlue500 } from 'bpk-tokens/tokens/base.react.native';
+import { colorPrimaryGradientLight } from 'bpk-tokens/tokens/base.react.native';
 
 const styles = StyleSheet.create({
   foo: {
-    color: colorBlue500,
+    color: colorPrimaryGradientLight,
   },
 });`,
       errors: [
         {
-          message: 'Use the following Backpack token instead: colorBlue500',
+          message:
+            'Use the following Backpack token instead: colorPrimaryGradientLight',
         },
       ],
     },
@@ -248,20 +251,21 @@ const styles = StyleSheet.create({
       code: `
 const styles = StyleSheet.create({
   foo: {
-    color: 'rgb(0, 178, 214)',
+    color: 'rgb(7, 112, 227)',
   },
 });`,
       output: `
-import { colorBlue500 } from './tokens';
+import { colorPrimaryGradientLight } from './tokens';
 
 const styles = StyleSheet.create({
   foo: {
-    color: colorBlue500,
+    color: colorPrimaryGradientLight,
   },
 });`,
       errors: [
         {
-          message: 'Use the following Backpack token instead: colorBlue500',
+          message:
+            'Use the following Backpack token instead: colorPrimaryGradientLight',
         },
       ],
     },

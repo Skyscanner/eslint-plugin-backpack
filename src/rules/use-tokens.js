@@ -127,9 +127,7 @@ const checkColor = (node, context) => {
   if (expectedToken) {
     context.report({
       node,
-      message: `Use the following Backpack token instead: ${
-        expectedToken.name
-      }`,
+      message: `Use the following Backpack token instead: ${expectedToken.name}`,
       fix: fixer => {
         const { options: userOptions } = context;
         const options = _.merge({}, BASE_CONFIG, userOptions[0] || {});
@@ -259,9 +257,7 @@ const checkLengths = (node, context) => {
   if (isNonZeroNumber) {
     context.report({
       node,
-      message: `Don't use raw numbers for \`${
-        key.name
-      }\` instead use a Backpack token or multiples of a token`,
+      message: `Don't use raw numbers for \`${key.name}\` instead use a Backpack token or multiples of a token`,
     });
   }
 
@@ -271,9 +267,7 @@ const checkLengths = (node, context) => {
   if (isValid === false) {
     context.report({
       node,
-      message: `Don't use raw numbers for \`${
-        key.name
-      }\` instead use a Backpack token or multiples of a token`,
+      message: `Don't use raw numbers for \`${key.name}\` instead use a Backpack token or multiples of a token`,
     });
   }
 };
