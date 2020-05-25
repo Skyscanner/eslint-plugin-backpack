@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-## 0.3.0 - 2020-03-23 - Upgrade dependencies and add Node 12 support
+## 1.0.0 - 2020-03-23 - Upgrade dependencies and add Node 12 support
+
+### Breaking
+  - Upgraded to support Node 12
 
 ### Fixed
-  - Upgraded to support Node 12
   - Upgrade dependencies.
 
 _Nothing yet..._
