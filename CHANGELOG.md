@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+_Nothing yet..._
 
 ## 1.0.1 - 2020-05-26 - Moved Snyk dep
   - Moved Snyk dependency to devDeps
@@ -17,8 +18,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
   - Upgrade dependencies.
-
-_Nothing yet..._
 
 ## 0.2.3 - 2019-02-05 - Upgrade deps
 
