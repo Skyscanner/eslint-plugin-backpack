@@ -19,25 +19,36 @@ const merge = require('lodash/merge');
 
 const { addImport, getImportDefinition } = require('../auto-import');
 
+const BPK_PATH = 'backpack-react-native/';
+
 const BPK_SUBSTITUTES = {
   ActivityIndicator: 'BpkSpinner',
   Alert: 'BpkAlert',
   Button: 'BpkButton',
+  FlatList: 'BpkFlatList',
   Image: 'BpkImage',
+  Picker: 'BpkPicker',
+  SectionList: 'BpkSectionList',
+  Switch: 'BpkSwitch',
   Text: 'BpkText',
+  TextInput: 'BpkTextInput',
   TouchableHighlight: 'BpkTouchableOverlay',
   TouchableNativeFeedback: 'BpkTouchableNativeFeedback',
 };
 
 const PACKAGES = {
-  BpkSpinner: 'react-native-bpk-component-spinner',
-  BpkAlert: 'react-native-bpk-component-alert',
-  BpkButton: 'react-native-bpk-component-button',
-  BpkImage: 'react-native-bpk-component-image',
-  BpkText: 'react-native-bpk-component-text',
-  BpkTouchableOverlay: 'react-native-bpk-component-touchable-overlay',
-  BpkTouchableNativeFeedback:
-    'react-native-bpk-component-touchable-native-feedback',
+  BpkSpinner: 'bpk-component-spinner',
+  BpkAlert: 'bpk-component-alert',
+  BpkButton: 'bpk-component-button',
+  BpkFlatList: 'bpk-component-flat-list',
+  BpkImage: 'bpk-component-image',
+  BpkPicker: 'bpk-component-picker',
+  BpkSectionList: 'bpk-component-section-list',
+  BpkSwitch: 'bpk-component-switch',
+  BpkText: 'bpk-component-text',
+  BpkTextInput: 'bpk-component-text-input',
+  BpkTouchableOverlay: 'bpk-component-touchable-overlay',
+  BpkTouchableNativeFeedback: 'bpk-component-touchable-native-feedback',
 };
 
 const BASE_CONFIG = {
@@ -49,7 +60,7 @@ const ruleMessage = bkpComponent =>
 
 const fixAndMaybeImport = (fixer, options, node, identifier, fixes) => {
   const config = merge({}, BASE_CONFIG, options);
-  const packageName = PACKAGES[identifier];
+  const packageName = BPK_PATH + PACKAGES[identifier];
 
   if (!config.autoImport) {
     return fixes;
