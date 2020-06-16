@@ -20,6 +20,8 @@ const { RuleTester } = require('eslint');
 
 const useComponents = require('./use-components');
 
+const BPK_PATH = 'backpack-react-native/';
+
 const ruleTester = new RuleTester({
   parserOptions: {
     ecmaVersion: 2015,
@@ -29,22 +31,29 @@ const ruleTester = new RuleTester({
 });
 
 [
-  ['ActivityIndicator', 'BpkSpinner', 'react-native-bpk-component-spinner'],
-  ['Alert', 'BpkAlert', 'react-native-bpk-component-alert'],
-  ['Button', 'BpkButton', 'react-native-bpk-component-button'],
-  ['Image', 'BpkImage', 'react-native-bpk-component-image'],
-  ['Text', 'BpkText', 'react-native-bpk-component-text'],
+  ['ActivityIndicator', 'BpkSpinner', 'bpk-component-spinner'],
+  ['Alert', 'BpkAlert', 'bpk-component-alert'],
+  ['Button', 'BpkButton', 'bpk-component-button'],
+  ['FlatList', 'BpkFlatList', 'bpk-component-flat-list'],
+  ['Image', 'BpkImage', 'bpk-component-image'],
+  ['Picker', 'BpkPicker', 'bpk-component-picker'],
+  ['SectionList', 'BpkSectionList', 'bpk-component-section-list'],
+  ['Switch', 'BpkSwitch', 'bpk-component-switch'],
+  ['Text', 'BpkText', 'bpk-component-text'],
+  ['TextInput', 'BpkTextInput', 'bpk-component-text-input'],
   [
     'TouchableHighlight',
     'BpkTouchableOverlay',
-    'react-native-bpk-component-touchable-overlay',
+    'bpk-component-touchable-overlay',
   ],
   [
     'TouchableNativeFeedback',
     'BpkTouchableNativeFeedback',
-    'react-native-bpk-component-touchable-native-feedback',
+    'bpk-component-touchable-native-feedback',
   ],
 ].forEach(([Component, Substitute, pkg]) => {
+  const pkgPath = BPK_PATH + pkg;
+
   ruleTester.run(`use-components - ${Component}`, useComponents, {
     valid: [
       `<${Substitute}>I'm allowed</${Substitute}>`,
@@ -56,7 +65,7 @@ const ruleTester = new RuleTester({
       {
         code: `React.createElement(${Component}, null, "I'm not allowed")`,
         output: `
-import ${Substitute} from '${pkg}';
+import ${Substitute} from '${pkgPath}';
 React.createElement(${Substitute}, null, "I'm not allowed")`,
         errors: [
           {
@@ -67,7 +76,7 @@ React.createElement(${Substitute}, null, "I'm not allowed")`,
       {
         code: `create(${Component}, null, "I'm not allowed")`,
         output: `
-import ${Substitute} from '${pkg}';
+import ${Substitute} from '${pkgPath}';
 create(${Substitute}, null, "I'm not allowed")`,
         errors: [
           {
@@ -78,7 +87,7 @@ create(${Substitute}, null, "I'm not allowed")`,
       {
         code: `<${Component}>I'm not allowed</${Component}>`,
         output: `
-import ${Substitute} from '${pkg}';
+import ${Substitute} from '${pkgPath}';
 <${Substitute}>I'm not allowed</${Substitute}>`,
         errors: [
           {
@@ -89,7 +98,7 @@ import ${Substitute} from '${pkg}';
       {
         code: `<${Component} children="I'm not allowed" />`,
         output: `
-import ${Substitute} from '${pkg}';
+import ${Substitute} from '${pkgPath}';
 <${Substitute} children="I'm not allowed" />`,
         errors: [
           {
@@ -109,10 +118,10 @@ import ${Substitute} from '${pkg}';
       },
       {
         code: `
-import ${Substitute} from '${pkg}';
+import ${Substitute} from '${pkgPath}';
 <${Component} children="I'm not allowed" />`,
         output: `
-import ${Substitute} from '${pkg}';
+import ${Substitute} from '${pkgPath}';
 <${Substitute} children="I'm not allowed" />`,
         errors: [
           {

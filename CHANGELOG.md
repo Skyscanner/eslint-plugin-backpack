@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 _Nothing yet..._
 
+- Added new `use-component` rules for React Native components
+  - `BpkFlatList`, `BpkPicker`, `BpkSectionList`, `BpkSwitch`, `BpkTextInput`
+
+
 ## 1.0.1 - 2020-05-26 - Moved Snyk dep
   - Moved Snyk dependency to devDeps
 
