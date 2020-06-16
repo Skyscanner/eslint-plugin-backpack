@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 _Nothing yet..._
 
+
+## 1.1.0 - 2020-06-16 - New component rules
 - Added new `use-component` rules for React Native components
   - `BpkFlatList`, `BpkPicker`, `BpkSectionList`, `BpkSwitch`, `BpkTextInput`
 
