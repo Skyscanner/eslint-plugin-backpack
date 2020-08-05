@@ -21,7 +21,6 @@
     "lint": "eslint .",
     "pretest": "npx ensure-node-env",
     "test": "mocha src/*.test.js src/**/*.test.js",
-    "todo-remove-this": "mocha src/rules/use-components-web.test.js",
     "lint:js:fix": "eslint . --ext js,jsx --fix",
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx}\"",
     "snyk-protect": "snyk protect",

@@ -21,10 +21,68 @@ const { addImport, getImportDefinition } = require('../auto-import');
 
 const BPK_SUBSTITUTES = {
   blockquote: 'BpkBlockQuote',
+  code: 'BpkCode',
+  pre: 'BpkCodeBlock',
+  table: 'BpkTable',
+  thead: 'BpkTableHead',
+  th: 'BpkTableHeadCell',
+  tr: 'BpkTableRow',
+  tbody: 'BpkTableBody',
+  td: 'BpkTableCell',
+
+  progress: 'BpkProgress',
+  img: 'BpkImage',
+  select: 'BpkSelect',
+  dl: 'BpkDescriptionList',
+  dt: 'BpkDescriptionTerm',
+  dd: 'BpkDescriptionDetails',
+  textarea: 'BpkTextarea',
+  fieldset: 'BpkFieldset',
 };
 
 const PACKAGES = {
   BpkBlockQuote: 'bpk-component-blockquote',
+  BpkCode: 'bpk-component-code',
+  BpkCodeBlock: 'bpk-component-code',
+  BpkTable: 'bpk-component-table',
+  BpkTableHead: 'bpk-component-table',
+  BpkTableHeadCell: 'bpk-component-table',
+  BpkTableRow: 'bpk-component-table',
+  BpkTableBody: 'bpk-component-table',
+  BpkTableCell: 'bpk-component-table',
+  BpkProgress: 'bpk-component-progress',
+  BpkImage: 'bpk-component-image',
+  BpkSelect: 'bpk-component-select',
+  BpkDescriptionList: 'bpk-component-description-list',
+  BpkDescriptionTerm: 'bpk-component-description-list',
+  BpkDescriptionDetails: 'bpk-component-description-list',
+  BpkTextarea: 'bpk-component-textarea',
+  BpkFieldset: 'bpk-component-fieldset',
+};
+
+/*
+How the component should be imported:
+default: `import BpkShavocado from 'bpk-component-shavocado'`
+nested: `import { BpkShavocado } from 'bpk-component-shavocado'`
+*/
+const IMPORT_STYLES = {
+  BpkBlockQuote: 'default',
+  BpkCode: 'nested',
+  BpkCodeBlock: 'nested',
+  BpkTable: 'nested',
+  BpkTableHead: 'nested',
+  BpkTableHeadCell: 'nested',
+  BpkTableRow: 'nested',
+  BpkTableBody: 'nested',
+  BpkTableCell: 'nested',
+  BpkProgress: 'default',
+  BpkImage: 'default',
+  BpkSelect: 'default',
+  BpkDescriptionList: 'nested',
+  BpkDescriptionTerm: 'nested',
+  BpkDescriptionDetails: 'nested',
+  BpkTextarea: 'default',
+  BpkFieldset: 'default',
 };
 
 const BASE_CONFIG = {
@@ -37,6 +95,7 @@ const ruleMessage = bpkComponent =>
 const fixAndMaybeImport = (fixer, options, node, identifier, fixes) => {
   const config = merge({}, BASE_CONFIG, options);
   const packageName = PACKAGES[identifier];
+  const autoImportStyle = IMPORT_STYLES[identifier];
 
   if (!config.autoImport) {
     return fixes;
@@ -44,7 +103,7 @@ const fixAndMaybeImport = (fixer, options, node, identifier, fixes) => {
 
   const importDef = getImportDefinition(node, identifier, {
     packageName,
-    style: 'default',
+    style: autoImportStyle,
   });
 
   if (importDef.isImported) {
