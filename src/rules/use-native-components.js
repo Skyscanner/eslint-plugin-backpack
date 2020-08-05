@@ -55,8 +55,8 @@ const BASE_CONFIG = {
   autoImport: true,
 };
 
-const ruleMessage = bkpComponent =>
-  `Use the following Backpack component instead: ${bkpComponent}`;
+const ruleMessage = bpkComponent =>
+  `Use the following Backpack component instead: ${bpkComponent}`;
 
 const fixAndMaybeImport = (fixer, options, node, identifier, fixes) => {
   const config = merge({}, BASE_CONFIG, options);

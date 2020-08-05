@@ -1,6 +1,6 @@
 # eslint-plugin-backpack
 
-[![Build Status](https://travis-ci.org/Skyscanner/eslint-plugin-backpack.svg?branch=master)](https://travis-ci.org/Skyscanner/eslint-plugin-backpack/) 
+[![Build Status](https://travis-ci.org/Skyscanner/eslint-plugin-backpack.svg?branch=master)](https://travis-ci.org/Skyscanner/eslint-plugin-backpack/)
 
 Eslint plugin to prevent magic arbitrary values and promote the use of Backpack tokens
 
@@ -68,9 +68,9 @@ Available for colours and length values. Will prevent the use of a hardcoded col
 }
 ```
 
-### use-components
+### use-native-components
 
-Available for native components initially. Will prevent the usage of native components when a backpack option is available.
+**For React Native.** Will prevent the usage of native components when a Backpack option is available.
 
 #### Configuration
 
@@ -81,7 +81,27 @@ Available for native components initially. Will prevent the usage of native comp
 ```json
 {
   "rules": {
-    "backpack/use-components": [2, {
+    "backpack/use-native-components": [2, {
+      "autoImport": true,
+    }]
+  }
+}
+```
+
+### use-web-components
+
+**For web.** Will prevent the usage of HTML elements when a Backpack option is available.
+
+#### Configuration
+
+| Name          | Type                                   | Required    |
+| ------------- | -------------------------------------- | ----------- |
+| autoImport    | boolean                                | false       |
+
+```json
+{
+  "rules": {
+    "backpack/use-web-components": [2, {
       "autoImport": true,
     }]
   }

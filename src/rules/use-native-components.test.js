@@ -18,7 +18,7 @@
 
 const { RuleTester } = require('eslint');
 
-const useComponents = require('./use-components');
+const useComponents = require('./use-native-components');
 
 const BPK_PATH = 'backpack-react-native/';
 
