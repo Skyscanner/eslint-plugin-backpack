@@ -8,11 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 
 ### Breaking
-- Renamed `use-components` rule to `use-native-components`.
+- `use-components` now takes a `platform` option. The possible options are `web` (default) and `native`. This is breaking because previous users of this rule will need to add `platform: 'native'` to their config.
 
 ### Added
-- Added `use-web-components` rule, the counterpart to `use-native-components` for web projects.
-
+- `use-components` now works with web components too.
 
 ## 1.1.0 - 2020-06-16 - New component rules
 - Added new `use-component` rules for React Native components
