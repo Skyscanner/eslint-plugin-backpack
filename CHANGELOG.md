@@ -6,7 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
-_Nothing yet..._
+
+### Breaking
+- Renamed `use-components` rule to `use-native-components`.
+
+### Added
+- Added `use-web-components` rule, the counterpart to `use-native-components` for web projects.
 
 
 ## 1.1.0 - 2020-06-16 - New component rules

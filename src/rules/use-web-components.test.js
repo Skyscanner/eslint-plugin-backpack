@@ -18,9 +18,7 @@
 
 const { RuleTester } = require('eslint');
 
-const useComponents = require('./use-components');
-
-const BPK_PATH = 'backpack-react-native/';
+const useComponents = require('./use-web-components');
 
 const ruleTester = new RuleTester({
   parserOptions: {
@@ -30,31 +28,33 @@ const ruleTester = new RuleTester({
   },
 });
 
-[
-  ['ActivityIndicator', 'BpkSpinner', 'bpk-component-spinner'],
-  ['Alert', 'BpkAlert', 'bpk-component-alert'],
-  ['Button', 'BpkButton', 'bpk-component-button'],
-  ['FlatList', 'BpkFlatList', 'bpk-component-flat-list'],
-  ['Image', 'BpkImage', 'bpk-component-image'],
-  ['Picker', 'BpkPicker', 'bpk-component-picker'],
-  ['SectionList', 'BpkSectionList', 'bpk-component-section-list'],
-  ['Switch', 'BpkSwitch', 'bpk-component-switch'],
-  ['Text', 'BpkText', 'bpk-component-text'],
-  ['TextInput', 'BpkTextInput', 'bpk-component-text-input'],
-  [
-    'TouchableHighlight',
-    'BpkTouchableOverlay',
-    'bpk-component-touchable-overlay',
-  ],
-  [
-    'TouchableNativeFeedback',
-    'BpkTouchableNativeFeedback',
-    'bpk-component-touchable-native-feedback',
-  ],
-].forEach(([Component, Substitute, pkg]) => {
-  const pkgPath = BPK_PATH + pkg;
+const createImportStatement = (Substitute, useDefaultImport, pkgPath) =>
+  `import ${
+    useDefaultImport ? Substitute : `{ ${Substitute} }`
+  } from '${pkgPath}';`;
 
-  ruleTester.run(`use-components - ${Component}`, useComponents, {
+[
+  ['blockquote', 'BpkBlockQuote', 'bpk-component-blockquote', true],
+  ['code', 'BpkCode', 'bpk-component-code', false],
+  ['dd', 'BpkDescriptionDetails', 'bpk-component-description-list', false],
+  ['dl', 'BpkDescriptionList', 'bpk-component-description-list', false],
+  ['dt', 'BpkDescriptionTerm', 'bpk-component-description-list', false],
+  ['fieldset', 'BpkFieldset', 'bpk-component-fieldset', true],
+  ['img', 'BpkImage', 'bpk-component-image', true],
+  ['pre', 'BpkCodeBlock', 'bpk-component-code', false],
+  ['progress', 'BpkProgress', 'bpk-component-progress', true],
+  ['select', 'BpkSelect', 'bpk-component-select', true],
+  ['table', 'BpkTable', 'bpk-component-table', false],
+  ['tbody', 'BpkTableBody', 'bpk-component-table', false],
+  ['td', 'BpkTableCell', 'bpk-component-table', false],
+  ['textarea', 'BpkTextarea', 'bpk-component-textarea', true],
+  ['th', 'BpkTableHeadCell', 'bpk-component-table', false],
+  ['thead', 'BpkTableHead', 'bpk-component-table', false],
+  ['tr', 'BpkTableRow', 'bpk-component-table', false],
+].forEach(([Component, Substitute, pkg, useDefaultImport]) => {
+  const pkgPath = pkg;
+
+  ruleTester.run(`use-components-web - ${Component}`, useComponents, {
     valid: [
       `<${Substitute}>I'm allowed</${Substitute}>`,
       `<div>I'm allowed</div>`,
@@ -65,7 +65,7 @@ const ruleTester = new RuleTester({
       {
         code: `React.createElement(${Component}, null, "I'm not allowed")`,
         output: `
-import ${Substitute} from '${pkgPath}';
+${createImportStatement(Substitute, useDefaultImport, pkgPath)}
 React.createElement(${Substitute}, null, "I'm not allowed")`,
         errors: [
           {
@@ -76,7 +76,7 @@ React.createElement(${Substitute}, null, "I'm not allowed")`,
       {
         code: `create(${Component}, null, "I'm not allowed")`,
         output: `
-import ${Substitute} from '${pkgPath}';
+${createImportStatement(Substitute, useDefaultImport, pkgPath)}
 create(${Substitute}, null, "I'm not allowed")`,
         errors: [
           {
@@ -87,7 +87,7 @@ create(${Substitute}, null, "I'm not allowed")`,
       {
         code: `<${Component}>I'm not allowed</${Component}>`,
         output: `
-import ${Substitute} from '${pkgPath}';
+${createImportStatement(Substitute, useDefaultImport, pkgPath)}
 <${Substitute}>I'm not allowed</${Substitute}>`,
         errors: [
           {
@@ -98,7 +98,7 @@ import ${Substitute} from '${pkgPath}';
       {
         code: `<${Component} children="I'm not allowed" />`,
         output: `
-import ${Substitute} from '${pkgPath}';
+${createImportStatement(Substitute, useDefaultImport, pkgPath)}
 <${Substitute} children="I'm not allowed" />`,
         errors: [
           {
@@ -118,10 +118,10 @@ import ${Substitute} from '${pkgPath}';
       },
       {
         code: `
-import ${Substitute} from '${pkgPath}';
+${createImportStatement(Substitute, useDefaultImport, pkgPath)}
 <${Component} children="I'm not allowed" />`,
         output: `
-import ${Substitute} from '${pkgPath}';
+${createImportStatement(Substitute, useDefaultImport, pkgPath)}
 <${Substitute} children="I'm not allowed" />`,
         errors: [
           {
