@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 2.0.0 - Support for web components
 
 ### Breaking
 - `use-components` now takes a `platform` option. The possible options are `web` (default) and `native`. This is breaking because previous users of this rule will need to add `platform: 'native'` to their config.
