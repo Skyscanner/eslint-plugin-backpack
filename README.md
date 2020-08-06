@@ -68,41 +68,23 @@ Available for colours and length values. Will prevent the use of a hardcoded col
 }
 ```
 
-### use-native-components
+### use-components
 
-**For React Native.** Will prevent the usage of native components when a Backpack option is available.
-
-#### Configuration
-
-| Name          | Type                                   | Required    |
-| ------------- | -------------------------------------- | ----------- |
-| autoImport    | boolean                                | false       |
-
-```json
-{
-  "rules": {
-    "backpack/use-native-components": [2, {
-      "autoImport": true,
-    }]
-  }
-}
-```
-
-### use-web-components
-
-**For web.** Will prevent the usage of HTML elements when a Backpack option is available.
+Will prevent the usage of built-in components when a Backpack option is available.
 
 #### Configuration
 
 | Name          | Type                                   | Required    |
 | ------------- | -------------------------------------- | ----------- |
 | autoImport    | boolean                                | false       |
+| platform      | string                                 | false       |
 
 ```json
 {
   "rules": {
-    "backpack/use-web-components": [2, {
+    "backpack/use-components": [2, {
       "autoImport": true,
+      "platform": "web"
     }]
   }
 }
