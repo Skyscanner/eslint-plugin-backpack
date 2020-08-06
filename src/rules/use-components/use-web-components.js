@@ -17,38 +17,71 @@
 
 const merge = require('lodash/merge');
 
-const { addImport, getImportDefinition } = require('../auto-import');
-
-const BPK_PATH = 'backpack-react-native/';
+const { addImport, getImportDefinition } = require('../../auto-import');
 
 const BPK_SUBSTITUTES = {
-  ActivityIndicator: 'BpkSpinner',
-  Alert: 'BpkAlert',
-  Button: 'BpkButton',
-  FlatList: 'BpkFlatList',
-  Image: 'BpkImage',
-  Picker: 'BpkPicker',
-  SectionList: 'BpkSectionList',
-  Switch: 'BpkSwitch',
-  Text: 'BpkText',
-  TextInput: 'BpkTextInput',
-  TouchableHighlight: 'BpkTouchableOverlay',
-  TouchableNativeFeedback: 'BpkTouchableNativeFeedback',
+  blockquote: 'BpkBlockQuote',
+  code: 'BpkCode',
+  dd: 'BpkDescriptionDetails',
+  dl: 'BpkDescriptionList',
+  dt: 'BpkDescriptionTerm',
+  fieldset: 'BpkFieldset',
+  img: 'BpkImage',
+  pre: 'BpkCodeBlock',
+  progress: 'BpkProgress',
+  select: 'BpkSelect',
+  table: 'BpkTable',
+  tbody: 'BpkTableBody',
+  td: 'BpkTableCell',
+  textarea: 'BpkTextarea',
+  th: 'BpkTableHeadCell',
+  thead: 'BpkTableHead',
+  tr: 'BpkTableRow',
 };
 
 const PACKAGES = {
-  BpkSpinner: 'bpk-component-spinner',
-  BpkAlert: 'bpk-component-alert',
-  BpkButton: 'bpk-component-button',
-  BpkFlatList: 'bpk-component-flat-list',
+  BpkBlockQuote: 'bpk-component-blockquote',
+  BpkCode: 'bpk-component-code',
+  BpkCodeBlock: 'bpk-component-code',
+  BpkDescriptionDetails: 'bpk-component-description-list',
+  BpkDescriptionList: 'bpk-component-description-list',
+  BpkDescriptionTerm: 'bpk-component-description-list',
+  BpkFieldset: 'bpk-component-fieldset',
   BpkImage: 'bpk-component-image',
-  BpkPicker: 'bpk-component-picker',
-  BpkSectionList: 'bpk-component-section-list',
-  BpkSwitch: 'bpk-component-switch',
-  BpkText: 'bpk-component-text',
-  BpkTextInput: 'bpk-component-text-input',
-  BpkTouchableOverlay: 'bpk-component-touchable-overlay',
-  BpkTouchableNativeFeedback: 'bpk-component-touchable-native-feedback',
+  BpkProgress: 'bpk-component-progress',
+  BpkSelect: 'bpk-component-select',
+  BpkTable: 'bpk-component-table',
+  BpkTableBody: 'bpk-component-table',
+  BpkTableCell: 'bpk-component-table',
+  BpkTableHead: 'bpk-component-table',
+  BpkTableHeadCell: 'bpk-component-table',
+  BpkTableRow: 'bpk-component-table',
+  BpkTextarea: 'bpk-component-textarea',
+};
+
+/*
+How the component should be imported:
+default: `import BpkShavocado from 'bpk-component-shavocado'`
+nested: `import { BpkShavocado } from 'bpk-component-shavocado'`
+*/
+const IMPORT_STYLES = {
+  BpkBlockQuote: 'default',
+  BpkCode: 'nested',
+  BpkCodeBlock: 'nested',
+  BpkDescriptionDetails: 'nested',
+  BpkDescriptionList: 'nested',
+  BpkDescriptionTerm: 'nested',
+  BpkFieldset: 'default',
+  BpkImage: 'default',
+  BpkProgress: 'default',
+  BpkSelect: 'default',
+  BpkTable: 'nested',
+  BpkTableBody: 'nested',
+  BpkTableCell: 'nested',
+  BpkTableHead: 'nested',
+  BpkTableHeadCell: 'nested',
+  BpkTableRow: 'nested',
+  BpkTextarea: 'default',
 };
 
 const BASE_CONFIG = {
@@ -60,7 +93,8 @@ const ruleMessage = bpkComponent =>
 
 const fixAndMaybeImport = (fixer, options, node, identifier, fixes) => {
   const config = merge({}, BASE_CONFIG, options);
-  const packageName = BPK_PATH + PACKAGES[identifier];
+  const packageName = PACKAGES[identifier];
+  const autoImportStyle = IMPORT_STYLES[identifier];
 
   if (!config.autoImport) {
     return fixes;
@@ -68,7 +102,7 @@ const fixAndMaybeImport = (fixer, options, node, identifier, fixes) => {
 
   const importDef = getImportDefinition(node, identifier, {
     packageName,
-    style: 'default',
+    style: autoImportStyle,
   });
 
   if (importDef.isImported) {
@@ -78,21 +112,7 @@ const fixAndMaybeImport = (fixer, options, node, identifier, fixes) => {
   return [addImport(fixer, importDef)].concat(fixes);
 };
 
-module.exports = ({ report, options }) => ({
-  meta: {
-    fixable: 'code',
-    schema: [
-      {
-        type: 'object',
-        properties: {
-          autoImport: {
-            type: 'boolean',
-          },
-        },
-      },
-    ],
-  },
-
+module.exports = (report, options) => ({
   CallExpression: node => {
     const { arguments: args } = node;
 

@@ -17,13 +17,11 @@
  */
 
 const useTokens = require('./src/rules/use-tokens');
-const useNativeComponents = require('./src/rules/use-native-components');
-const useWebComponents = require('./src/rules/use-web-components');
+const useComponents = require('./src/rules/use-components/use-components');
 
 module.exports = {
   rules: {
     'use-tokens': useTokens,
-    'use-native-components': useNativeComponents,
-    'use-web-components': useWebComponents,
+    'use-components': useComponents,
   },
 };
