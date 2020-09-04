@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Fixed
+  - Upgraded `lodash` dependency.
+
 ## 2.0.0 - Support for web components
 
 ### Breaking
