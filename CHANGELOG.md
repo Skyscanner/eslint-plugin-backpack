@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.0.1
+
+### Fixed
+  - Reverted `3.0.0` and re-added `bpk-tokens` as a project dependency.
+
 ## 3.0.0
 
 ### Breaking
