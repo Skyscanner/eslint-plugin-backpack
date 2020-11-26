@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.0.1
+
+### Fixed
+  - Reverted `3.0.0` and re-added `bpk-tokens` as a project dependency.
+
+## 3.0.0
+
+### Breaking
+  - Moved `bpk-tokens` to peer dependencies, so that version required in projects do not mismatch with project required versions.
+
+## 2.0.3
+  - Upgraded `bpk-tokens` dependency.
+
+## 2.0.2
+
+### Fixed
+  - Upgraded `bpk-tokens` dependency.
+
 ## 2.0.1 - Upgrade lodash dependency
 
 ### Fixed
