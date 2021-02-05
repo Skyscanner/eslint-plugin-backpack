@@ -2,9 +2,9 @@ name: ESLint Plugin Backpack CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build:
@@ -12,6 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: nvm install
+      run: nvm install
+    
     - name: Install deps
       run: npm ci
 
@@ -19,4 +22,6 @@ jobs:
       run: npm run lint
 
     - name: Test
-      run: npm test
+      run: |
+        nvm use
+        npm test
