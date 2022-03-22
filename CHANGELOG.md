@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.0.2 (Pending)
+  - Migrated from Node 12 to Node 16 as minimum supported version
 ## 3.0.1
 
 ### Fixed
