@@ -5,8 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.0.2 (Pending)
-  - Migrated from Node 12 to Node 16 as minimum supported version
+## 4.0.0
+
+- Drops support for Node versions < 16. No new functionality is introduced, but from this point forwards it should not be assumed Node 12 will work.
+
 ## 3.0.1
 
 ### Fixed
