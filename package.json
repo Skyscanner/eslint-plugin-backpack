@@ -22,9 +22,7 @@
     "pretest": "npx ensure-node-env",
     "test": "mocha --recursive \"src/**/*.test.js\"",
     "lint:js:fix": "eslint . --ext js,jsx --fix",
-    "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx}\"",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx}\""
   },
   "license": "Apache-2.0",
   "dependencies": {
@@ -35,11 +33,9 @@
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^5.13.0",
-    "eslint-plugin-prettier": "^3.1.2",
     "eslint_d": "^8.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "mocha": "^7.0.1",
-    "prettier": "^1.19.1",
-    "snyk": "^1.327.0"
-  },
-  "snyk": true
+    "prettier": "^1.19.1"
+  }
 }
