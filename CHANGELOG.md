@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.1
+
+- Update from Node `^16.13.0` to `>=16.13.0` to allow versions higher than 16.
+
 ## 4.0.0
 
 - Drops support for Node versions < 16. No new functionality is introduced, but from this point forwards it should not be assumed Node 12 will work.
