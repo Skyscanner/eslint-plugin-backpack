@@ -14,8 +14,8 @@
     "url": "git@github.com:Skyscanner/eslint-plugin-backpack.git"
   },
   "engines": {
-    "node": "^16.13.0",
-    "npm": "^8.1.0"
+    "node": ">=16.13.0",
+    "npm": ">=8.1.0"
   },
   "scripts": {
     "lint": "eslint .",
