@@ -19,7 +19,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "pretest": "npx ensure-node-env",
+    "pretest": "npx ensure-node-env@2.0.0",
     "test": "mocha --recursive \"src/**/*.test.js\"",
     "lint:js:fix": "eslint . --ext js,jsx --fix",
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx}\""
