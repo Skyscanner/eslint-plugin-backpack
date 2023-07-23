@@ -21,31 +21,37 @@ const { addImport, getImportDefinition } = require('./auto-import');
 
 // Dummy rule that executes the autoImport logic
 // for `dummy` and `extraDummy` variables.
-const dummyRule = ({ report, options }) => ({
+const dummyRule = {
   meta: {
     fixable: 'code',
   },
-  Property: node => {
-    if (node.value.name !== 'dummy' && node.value.name !== 'extraDummy') {
-      return;
-    }
+  create(context) {
+    const { report, options } = context;
 
-    const style = (options[0] && options[0].style) || 'named';
-    const def = getImportDefinition(node, node.value.name, {
-      packageName: 'dummy',
-      style,
-    });
-    if (def.isImported) {
-      return;
-    }
+    return {
+      Property: node => {
+        if (node.value.name !== 'dummy' && node.value.name !== 'extraDummy') {
+          return;
+        }
 
-    report({
-      node,
-      message: `Don't do this`,
-      fix: fixer => addImport(fixer, def),
-    });
-  },
-});
+        const style = (options[0] && options[0].style) || 'named';
+        const def = getImportDefinition(node, node.value.name, {
+          packageName: 'dummy',
+          style,
+        });
+        if (def.isImported) {
+          return;
+        }
+
+        report({
+          node,
+          message: `Don't do this`,
+          fix: fixer => addImport(fixer, def),
+        });
+      },
+    }
+  }
+};
 
 const ruleTester = new RuleTester({
   parserOptions: { ecmaVersion: 2015, sourceType: 'module' },
@@ -157,7 +163,7 @@ const styles = StyleSheet.create({
     },
     {
       code: `
-import { 
+import {
   extraDummy
 } from 'dummy';
 
@@ -168,7 +174,7 @@ const styles = StyleSheet.create({
   },
 });`,
       output: `
-import { 
+import {
   dummy,
 extraDummy
 } from 'dummy';
