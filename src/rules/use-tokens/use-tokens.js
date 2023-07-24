@@ -23,7 +23,7 @@ const {
   props: ANDROID_TOKENS,
 } = require('bpk-tokens/tokens/base.raw.android.json');
 
-const { addImport, getImportDefinition } = require('../auto-import');
+const { addImport, getImportDefinition } = require('../../auto-import');
 
 const BASE_CONFIG = {
   autoImport: true,
@@ -272,7 +272,7 @@ const checkLengths = (node, context) => {
   }
 };
 
-module.exports = context => ({
+module.exports = {
   meta: {
     fixable: 'code',
     schema: [
@@ -302,8 +302,12 @@ module.exports = context => ({
       },
     ],
   },
-  Property: node => {
-    checkColor(node, context);
-    checkLengths(node, context);
+  create(context) {
+    return {
+      Property: node => {
+        checkColor(node, context);
+        checkLengths(node, context);
+      },
+    };
   },
-});
+};

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-const useTokens = require('./src/rules/use-tokens');
+const useTokens = require('./src/rules/use-tokens/use-tokens');
 const useComponents = require('./src/rules/use-components/use-components');
 
 module.exports = {

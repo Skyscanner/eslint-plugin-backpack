@@ -1,6 +1,9 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "plugins": ["prettier"],
+  "parserOptions": {
+    "requireConfigFile": false
+  },
   "rules": {
     "prettier/prettier": "error"
   }

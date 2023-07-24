@@ -47,7 +47,7 @@ const existingImport = (importNode, identifier, { style }) => {
       }
 
       if (style === 'default') {
-        const range = [importNode.start + 6, importNode.start + 7];
+        const range = [importNode.range[0] + 6, importNode.range[0] + 7];
         return fixer.insertTextAfterRange(range, textToInsert);
       }
       // TODO: should we care about identation?
