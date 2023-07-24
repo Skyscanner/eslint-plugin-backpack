@@ -32,7 +32,7 @@ const createConfigForPlatform = (report, options) => {
   return useNativeComponents(report, options);
 };
 
-module.exports = ({ report, options }) => ({
+module.exports = {
   meta: {
     fixable: 'code',
     schema: [
@@ -49,5 +49,11 @@ module.exports = ({ report, options }) => ({
       },
     ],
   },
-  ...createConfigForPlatform(report, options),
-});
+  create(context) {
+    const { report, options } = context;
+
+    return {
+      ...createConfigForPlatform(report, options),
+    };
+  },
+};

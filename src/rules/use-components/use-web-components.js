@@ -131,7 +131,10 @@ module.exports = (report, options) => ({
             options[0],
             node,
             bpkSubstitute,
-            fixer.replaceTextRange([args[0].start, args[0].end], bpkSubstitute),
+            fixer.replaceTextRange(
+              [args[0].range[0], args[0].range[1]],
+              bpkSubstitute,
+            ),
           ),
       });
     }
