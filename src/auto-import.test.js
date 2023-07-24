@@ -49,8 +49,8 @@ const dummyRule = {
           fix: fixer => addImport(fixer, def),
         });
       },
-    }
-  }
+    };
+  },
 };
 
 const ruleTester = new RuleTester({
