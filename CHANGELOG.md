@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.0.0
+
+- Update from `babel-parser` to `@babel/eslint-parser`
+- Update from ESLint 5 to ESLint 8
+- Update from lodash `4.17.20` to `4.16.21`
+
 ## 4.0.1
 
 - Update from Node `^16.13.0` to `>=16.13.0` to allow versions higher than 16.
