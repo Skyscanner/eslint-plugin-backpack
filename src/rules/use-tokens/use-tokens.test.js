@@ -27,271 +27,143 @@ const ruleTester = new RuleTester({
 ruleTester.run('use-tokens', useTokens, {
   valid: [
     `const styles = StyleSheet.create({
-      foo: {
-        color: colorWhite,
-      },
-    });`,
+          foo: {
+            color: canvasDay,
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        color: colorSkyBlue,
-      },
-    });`,
+          foo: {
+            color: colorSkyBlue,
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        backgroundColor: colorWhite,
-      },
-    });`,
+          foo: {
+            backgroundColor: canvasDay,
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        backgroundColor: 'transparent',
-      },
-    });`,
+          foo: {
+            backgroundColor: 'transparent',
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        backgroundColor: null,
-      },
-    });`,
+          foo: {
+            backgroundColor: null,
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        backgroundColor: undefined,
-      },
-    });`,
+          foo: {
+            backgroundColor: undefined,
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        marginLeft: spacingSm,
-      },
-    });`,
+          foo: {
+            borderBottomStartRadius: 0,
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        borderBottomStartRadius: spacingSm,
-      },
-    });`,
+          foo: {
+            marginLeft: bar * 5,
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        borderBottomStartRadius: 0,
-      },
-    });`,
+          foo: {
+            marginLeft: myMargin() * 5,
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        marginLeft: spacingSm * 4,
-      },
-    });`,
+          foo: {
+            borderRadius: borderRadiusSm,
+          },
+        });`,
     `const styles = StyleSheet.create({
-      foo: {
-        marginLeft: spacingSm * 5 * 3,
-      },
-    });`,
-    `const styles = StyleSheet.create({
-      foo: {
-        marginLeft: (spacingSm * 5) * spacingBase,
-      },
-    });`,
-    `const styles = StyleSheet.create({
-      foo: {
-        marginLeft: bar * 5,
-      },
-    });`,
-    `const styles = StyleSheet.create({
-      foo: {
-        marginLeft: myMargin() * 5,
-      },
-    });`,
-    `const styles = StyleSheet.create({
-      foo: {
-        marginLeft: spacingSm + spacingSm,
-      },
-    });`,
-    `const styles = StyleSheet.create({
-      foo: {
-        paddingHorizontal: spacingMd - borderSizeSm,
-      },
-    });`,
-    `const styles = StyleSheet.create({
-      foo: {
-        minHeight: spacingBase * 3,
-      },
-    });`,
-    `const styles = StyleSheet.create({
-      foo: {
-        borderRadius: borderRadiusSm,
-      },
-    });`,
+          foo: {
+            padding: 5,
+          },
+        });`,
   ],
   invalid: [
     {
       code: `
-const styles = StyleSheet.create({
-  foo: {
-    color: '#ffffff',
-  },
-});`,
-      output: `
-import { colorWhite } from 'bpk-tokens/tokens/base.es6';
-
-const styles = StyleSheet.create({
-  foo: {
-    color: colorWhite,
-  },
-});`,
-      errors: [
-        {
-          message: 'Use the following Backpack token instead: colorWhite',
-        },
-      ],
-    },
-    {
-      code: `
-const styles = StyleSheet.create({
-  foo: {
-    backgroundColor: '#ff00ff',
-    color: '#ff00ff',
-  },
-});`,
-      errors: [
-        {
-          message: 'Unknown color, use a Backpack token instead',
-        },
-        {
-          message: 'Unknown color, use a Backpack token instead',
-        },
-      ],
-    },
-
-    {
-      code: `
-const styles = StyleSheet.create({
-  foo: {
-    backgroundColor: '#ffffff',
-  },
-});`,
-      output: `
-import { colorWhite } from 'bpk-tokens/tokens/base.es6';
-
-const styles = StyleSheet.create({
-  foo: {
-    backgroundColor: colorWhite,
-  },
-});`,
-      errors: [
-        {
-          message: 'Use the following Backpack token instead: colorWhite',
-        },
-      ],
-    },
-
-    {
-      code: `
-const styles = StyleSheet.create({
-  foo: {
-    color: 'rgb(7, 112, 227)',
-  },
-});`,
-      output: `
-import { colorPrimaryGradientLight } from 'bpk-tokens/tokens/base.es6';
-
-const styles = StyleSheet.create({
-  foo: {
-    color: colorPrimaryGradientLight,
-  },
-});`,
+    const styles = StyleSheet.create({
+      foo: {
+        color: 'rgba(0, 0, 0, 0.8)',
+      },
+    });`,
       errors: [
         {
           message:
-            'Use the following Backpack token instead: colorPrimaryGradientLight',
+            'Use the following Backpack token instead: privateMapMarkerViewedForegroundNight',
         },
       ],
     },
-
     {
-      options: [{ autoImport: false }],
       code: `
-const styles = StyleSheet.create({
-  foo: {
-    color: 'rgb(7, 112, 227)',
-  },
-});`,
-      output: `
-const styles = StyleSheet.create({
-  foo: {
-    color: colorPrimaryGradientLight,
-  },
-});`,
+    const styles = StyleSheet.create({
+      foo: {
+        color: '#ffffff',
+      },
+    });`,
       errors: [
         {
           message:
-            'Use the following Backpack token instead: colorPrimaryGradientLight',
+            'Multiple colors matched for colour, refer to to https://www.skyscanner.design/latest/foundations/colours/usage-LJ0uHGQL for the right semantic token',
         },
       ],
     },
-
     {
-      options: [{ platform: 'native' }],
       code: `
-const styles = StyleSheet.create({
-  foo: {
-    color: 'rgb(7, 112, 227)',
-  },
-});`,
-      output: `
-import { colorPrimaryGradientLight } from 'bpk-tokens/tokens/base.react.native';
-
-const styles = StyleSheet.create({
-  foo: {
-    color: colorPrimaryGradientLight,
-  },
-});`,
+    const styles = StyleSheet.create({
+      foo: {
+        backgroundColor: '#ff00ff',
+        color: '#ff00ff',
+      },
+    });`,
       errors: [
         {
           message:
-            'Use the following Backpack token instead: colorPrimaryGradientLight',
+            'Unknown color detected not in our brand, refer to to https://www.skyscanner.design/latest/foundations/colours/usage-LJ0uHGQL for the right semantic token',
+        },
+        {
+          message:
+            'Unknown color detected not in our brand, refer to to https://www.skyscanner.design/latest/foundations/colours/usage-LJ0uHGQL for the right semantic token',
         },
       ],
     },
-
     {
-      options: [{ platform: 'native', tokensPackage: { native: './tokens' } }],
       code: `
-const styles = StyleSheet.create({
-  foo: {
-    color: 'rgb(7, 112, 227)',
-  },
-});`,
-      output: `
-import { colorPrimaryGradientLight } from './tokens';
-
-const styles = StyleSheet.create({
-  foo: {
-    color: colorPrimaryGradientLight,
-  },
-});`,
+    const styles = StyleSheet.create({
+      foo: {
+        backgroundColor: '#ffffff',
+      },
+    });`,
       errors: [
         {
           message:
-            'Use the following Backpack token instead: colorPrimaryGradientLight',
+            'Multiple colors matched for colour, refer to to https://www.skyscanner.design/latest/foundations/colours/usage-LJ0uHGQL for the right semantic token',
         },
       ],
     },
-
+    {
+      code: `
+    const styles = StyleSheet.create({
+      foo: {
+        color: 'rgb(7, 112, 227)',
+      },
+    });`,
+      errors: [
+        {
+          message:
+            'Unknown color detected not in our brand, refer to to https://www.skyscanner.design/latest/foundations/colours/usage-LJ0uHGQL for the right semantic token',
+        },
+      ],
+    },
     {
       code: `const styles = StyleSheet.create({
-        foo: {
-          marginLeft: 4,
-        },
-      });`,
-      errors: [
-        {
-          message:
-            "Don't use raw numbers for `marginLeft` instead use a Backpack token or multiples of a token",
-        },
-      ],
-    },
-
-    {
-      code: `const styles = StyleSheet.create({
-        foo: {
-          borderBottomStartRadius: 4,
-        },
-      });`,
+            foo: {
+              borderBottomStartRadius: 4,
+            },
+          });`,
       errors: [
         {
           message:
@@ -299,49 +171,6 @@ const styles = StyleSheet.create({
         },
       ],
     },
-
-    {
-      code: `const styles = StyleSheet.create({
-        foo: {
-          marginLeft: spacingSm * 4 + 4,
-        },
-      });`,
-      errors: [
-        {
-          message:
-            "Don't use raw numbers for `marginLeft` instead use a Backpack token or multiples of a token",
-        },
-      ],
-    },
-
-    {
-      code: `const styles = StyleSheet.create({
-        foo: {
-          marginLeft: spacingSm * 4 + spacingBase + 2,
-        },
-      });`,
-      errors: [
-        {
-          message:
-            "Don't use raw numbers for `marginLeft` instead use a Backpack token or multiples of a token",
-        },
-      ],
-    },
-
-    {
-      code: `const styles = StyleSheet.create({
-        foo: {
-          marginLeft: 5 * 4,
-        },
-      });`,
-      errors: [
-        {
-          message:
-            "Don't use raw numbers for `marginLeft` instead use a Backpack token or multiples of a token",
-        },
-      ],
-    },
-
     {
       code: `const styles = StyleSheet.create({
         foo: {
@@ -355,7 +184,6 @@ const styles = StyleSheet.create({
         },
       ],
     },
-
     {
       code: `const styles = StyleSheet.create({
         foo: {

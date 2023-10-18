@@ -60,8 +60,7 @@ Available for colours and length values. Will prevent the use of a hardcoded col
       "autoImport": true,
       "platform": "web",
       "tokensPackage": {
-        "web": "bpk-tokens/tokens/base.es6",
-        "native": "bpk-tokens/tokens/base.react.native",
+        "web": "@skyscanner/bpk-foundations-web/tokens/base.es6",
       },
     }]
   }
