@@ -88,7 +88,6 @@ const checkColor = (node, context) => {
   const color = tinycolor(value.value);
 
   const matchedTokens = _.filter(COLORS, { value: color.toRgbString() });
-  console.log('matchedTokens', matchedTokens[0]);
   if (matchedTokens.length > 1) {
     context.report({
       node,
