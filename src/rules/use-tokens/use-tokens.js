@@ -17,24 +17,13 @@
 
 const _ = require('lodash');
 const tinycolor = require('tinycolor2');
-const { props: WEB_TOKENS } = require('bpk-tokens/tokens/base.raw.json');
-const { props: IOS_TOKENS } = require('bpk-tokens/tokens/base.raw.ios.json');
 const {
-  props: ANDROID_TOKENS,
-} = require('bpk-tokens/tokens/base.raw.android.json');
+  props: WEB_TOKENS,
+} = require('@skyscanner/bpk-foundations-web/tokens/base.raw.json');
 
 const { addImport, getImportDefinition } = require('../../auto-import');
 
-const BASE_CONFIG = {
-  autoImport: true,
-  platform: 'web',
-  tokensPackage: {
-    web: 'bpk-tokens/tokens/base.es6',
-    native: 'bpk-tokens/tokens/base.react.native',
-  },
-};
-
-const COLOR_WHITELIST = ['transparent', null, undefined];
+const COLOR_ALLOWLIST = ['transparent', null, undefined];
 const COLOR_PROPS = ['color', 'backgroundColor'];
 
 const RADII_PROPS = [
@@ -59,44 +48,7 @@ const BORDER_PROPS = [
   'borderWidth',
 ];
 
-const SPACING_PROPS = [
-  'bottom',
-  'end',
-  'height',
-  'left',
-  'margin',
-  'marginBottom',
-  'marginEnd',
-  'marginHorizontal',
-  'marginLeft',
-  'marginRight',
-  'marginStart',
-  'marginTop',
-  'marginVertical',
-  'maxHeight',
-  'maxWidth',
-  'minHeight',
-  'minWidth',
-  'padding',
-  'paddingBottom',
-  'paddingEnd',
-  'paddingHorizontal',
-  'paddingLeft',
-  'paddingRight',
-  'paddingStart',
-  'paddingTop',
-  'paddingVertical',
-  'right',
-  'start',
-  'top',
-  'width',
-];
-
-const TOKENS = _.merge(
-  _.mapKeys(WEB_TOKENS, (value, key) => `WEB_${key}`),
-  _.mapKeys(IOS_TOKENS, (value, key) => `IOS_${key}`),
-  _.mapKeys(ANDROID_TOKENS, (value, key) => `ANDROID_${key}`),
-);
+const TOKENS = _.merge(_.mapKeys(WEB_TOKENS, (value, key) => `WEB_${key}`));
 
 const tokensByCategory = category =>
   _.chain(TOKENS)
@@ -107,56 +59,49 @@ const tokensByCategory = category =>
     }))
     .value();
 
-const COLORS = tokensByCategory('colors');
-const SPACING_NAMES = new Set(tokensByCategory('spacings').map(x => x.name));
+const tokensByType = type =>
+  _.chain(TOKENS)
+    .filter({ type: type })
+    .map(({ name, value, deprecated }) => ({
+      name: _.camelCase(name),
+      value,
+      deprecated,
+    }))
+    .value();
+
+const COLORS = tokensByType('color').filter(function(el) {
+  return el.deprecated !== true;
+});
+
 const RADII_NAMES = new Set(tokensByCategory('radii').map(x => x.name));
 const BORDER_NAMES = new Set(tokensByCategory('borders').map(x => x.name));
 
 const checkColor = (node, context) => {
   const { key, value } = node;
   const isColor = COLOR_PROPS.includes(key.name) && value.type === 'Literal';
-
-  if (!isColor) {
+  const allowedColor = COLOR_ALLOWLIST.filter(c => value.value === c).length;
+  // We check if the colour is in the allowlist, or if it's a valid Backpack token
+  if (!isColor || allowedColor) {
     return;
   }
 
   const color = tinycolor(value.value);
 
-  const expectedToken = _.find(COLORS, { value: color.toRgbString() });
-
-  if (expectedToken) {
+  const matchedTokens = _.filter(COLORS, { value: color.toRgbString() });
+  if (matchedTokens.length > 1) {
     context.report({
       node,
-      message: `Use the following Backpack token instead: ${expectedToken.name}`,
-      fix: fixer => {
-        const { options: userOptions } = context;
-        const options = _.merge({}, BASE_CONFIG, userOptions[0] || {});
-        const tokensPkg = options.tokensPackage[options.platform];
-
-        if (!options.autoImport) {
-          return fixer.replaceText(value, expectedToken.name);
-        }
-
-        const importDefinition = getImportDefinition(node, expectedToken.name, {
-          packageName: tokensPkg,
-          style: 'named',
-        });
-
-        if (importDefinition.isImported) {
-          return fixer.replaceText(value, expectedToken.name);
-        }
-
-        return [
-          addImport(fixer, importDefinition),
-          fixer.replaceText(value, expectedToken.name),
-        ];
-      },
+      message: `Multiple colors matched for colour, refer to to https://www.skyscanner.design/latest/foundations/colours/usage-LJ0uHGQL for the right semantic token`,
+    });
+  } else if (matchedTokens.length === 0) {
+    context.report({
+      node,
+      message: `Unknown color detected not in our brand, refer to to https://www.skyscanner.design/latest/foundations/colours/usage-LJ0uHGQL for the right semantic token`,
     });
   } else {
-    if (COLOR_WHITELIST.filter(c => value.value === c).length) return;
     context.report({
       node,
-      message: `Unknown color, use a Backpack token instead`,
+      message: `Use the following Backpack token instead: ${matchedTokens[0].name}`,
     });
   }
 };
@@ -170,9 +115,7 @@ const isLiteralNumber = node =>
  */
 const isLengthIdentifier = node =>
   node.type === 'Identifier' &&
-  (SPACING_NAMES.has(node.name) ||
-    RADII_NAMES.has(node.name) ||
-    BORDER_NAMES.has(node.name));
+  (RADII_NAMES.has(node.name) || BORDER_NAMES.has(node.name));
 
 /*
  * Ensures that a complex expression i.e. not a literal is a
@@ -242,9 +185,7 @@ const isValidComplexLengthExpression = node => {
 const checkLengths = (node, context) => {
   const { key, value } = node;
   const isLength =
-    SPACING_PROPS.includes(key.name) ||
-    RADII_PROPS.includes(key.name) ||
-    BORDER_PROPS.includes(key.name);
+    RADII_PROPS.includes(key.name) || BORDER_PROPS.includes(key.name);
 
   if (!isLength) {
     return;
@@ -289,9 +230,6 @@ module.exports = {
             type: 'object',
             properties: {
               web: {
-                type: 'string',
-              },
-              native: {
                 type: 'string',
               },
             },

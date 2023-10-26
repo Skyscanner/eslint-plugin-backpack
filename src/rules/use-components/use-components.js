@@ -17,19 +17,9 @@
 const merge = require('lodash/merge');
 
 const useWebComponents = require('./use-web-components');
-const useNativeComponents = require('./use-native-components');
-
-const BASE_CONFIG = {
-  autoImport: true,
-  platform: 'web',
-};
 
 const createConfigForPlatform = (report, options) => {
-  const config = merge({}, BASE_CONFIG, options[0]);
-  if (config.platform === 'web') {
-    return useWebComponents(report, options);
-  }
-  return useNativeComponents(report, options);
+  return useWebComponents(report, options);
 };
 
 module.exports = {
