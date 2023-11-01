@@ -65,7 +65,7 @@ ruleTester.run('no-classname-assign', rule, {
             `,
       errors: [
         {
-          message: 'Avoid assigning to className of Backpack components',
+          message: 'Avoid assigning to className of backpack-web components',
           type: 'AssignmentExpression',
         },
       ],
@@ -80,11 +80,11 @@ ruleTester.run('no-classname-assign', rule, {
             `,
       errors: [
         {
-          message: 'Avoid assigning to className of Backpack components',
+          message: 'Avoid assigning to className of backpack-web components',
           type: 'AssignmentExpression',
         },
         {
-          message: 'Avoid assigning to className of Backpack components',
+          message: 'Avoid assigning to className of backpack-web components',
           type: 'AssignmentExpression',
         },
       ],
