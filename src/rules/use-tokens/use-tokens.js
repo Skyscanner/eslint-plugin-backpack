@@ -50,7 +50,7 @@ const BORDER_PROPS = [
 
 const TOKENS = _.merge(_.mapKeys(WEB_TOKENS, (value, key) => `WEB_${key}`));
 
-const tokensByCategory = category =>
+const tokensByCategory = (category) =>
   _.chain(TOKENS)
     .filter({ category })
     .map(({ name, value }) => ({
@@ -59,7 +59,7 @@ const tokensByCategory = category =>
     }))
     .value();
 
-const tokensByType = type =>
+const tokensByType = (type) =>
   _.chain(TOKENS)
     .filter({ type: type })
     .map(({ name, value, deprecated }) => ({
@@ -69,17 +69,17 @@ const tokensByType = type =>
     }))
     .value();
 
-const COLORS = tokensByType('color').filter(function(el) {
+const COLORS = tokensByType('color').filter(function (el) {
   return el.deprecated !== true;
 });
 
-const RADII_NAMES = new Set(tokensByCategory('radii').map(x => x.name));
-const BORDER_NAMES = new Set(tokensByCategory('borders').map(x => x.name));
+const RADII_NAMES = new Set(tokensByCategory('radii').map((x) => x.name));
+const BORDER_NAMES = new Set(tokensByCategory('borders').map((x) => x.name));
 
 const checkColor = (node, context) => {
   const { key, value } = node;
   const isColor = COLOR_PROPS.includes(key.name) && value.type === 'Literal';
-  const allowedColor = COLOR_ALLOWLIST.filter(c => value.value === c).length;
+  const allowedColor = COLOR_ALLOWLIST.filter((c) => value.value === c).length;
   // We check if the colour is in the allowlist, or if it's a valid Backpack token
   if (!isColor || allowedColor) {
     return;
@@ -106,14 +106,14 @@ const checkColor = (node, context) => {
   }
 };
 
-const isLiteralNumber = node =>
+const isLiteralNumber = (node) =>
   node.type === 'Literal' && typeof node.value === 'number';
 
 /*
  * Check if the node is an identifier and a known Backpack lengt
  * token.
  */
-const isLengthIdentifier = node =>
+const isLengthIdentifier = (node) =>
   node.type === 'Identifier' &&
   (RADII_NAMES.has(node.name) || BORDER_NAMES.has(node.name));
 
@@ -125,7 +125,7 @@ const isLengthIdentifier = node =>
  *
  * Returns a tri-state bool i.e. true | false | null.
  */
-const isValidComplexLengthExpression = node => {
+const isValidComplexLengthExpression = (node) => {
   if (node.type !== 'BinaryExpression') {
     return null;
   }
@@ -242,7 +242,7 @@ module.exports = {
   },
   create(context) {
     return {
-      Property: node => {
+      Property: (node) => {
         checkColor(node, context);
         checkLengths(node, context);
       },
