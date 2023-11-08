@@ -29,7 +29,7 @@ const dummyRule = {
     const { report, options } = context;
 
     return {
-      Property: node => {
+      Property: (node) => {
         if (node.value.name !== 'dummy' && node.value.name !== 'extraDummy') {
           return;
         }
@@ -46,7 +46,7 @@ const dummyRule = {
         report({
           node,
           message: `Don't do this`,
-          fix: fixer => addImport(fixer, def),
+          fix: (fixer) => addImport(fixer, def),
         });
       },
     };

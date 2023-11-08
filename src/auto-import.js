@@ -23,7 +23,7 @@ const newImport = (range, identifier, addNewLine, importConfig) => {
   const textToInsert = `\n${importStatement}${addNewLine ? '\n' : ''}`;
   return {
     isImported: false,
-    fix: fixer => fixer.insertTextAfterRange(range, textToInsert),
+    fix: (fixer) => fixer.insertTextAfterRange(range, textToInsert),
   };
 };
 
@@ -57,7 +57,7 @@ const existingImport = (importNode, identifier, { style }) => {
   };
 };
 
-const findProgramNode = node =>
+const findProgramNode = (node) =>
   node.type !== 'Program' ? findProgramNode(node.parent) : node;
 
 const findImportNode = (program, { packageName }) => {

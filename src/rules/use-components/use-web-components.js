@@ -88,7 +88,7 @@ const BASE_CONFIG = {
   autoImport: true,
 };
 
-const ruleMessage = bpkComponent =>
+const ruleMessage = (bpkComponent) =>
   `Use the following Backpack component instead: ${bpkComponent}`;
 
 const fixAndMaybeImport = (fixer, options, node, identifier, fixes) => {
@@ -113,7 +113,7 @@ const fixAndMaybeImport = (fixer, options, node, identifier, fixes) => {
 };
 
 module.exports = (report, options) => ({
-  CallExpression: node => {
+  CallExpression: (node) => {
     const { arguments: args } = node;
 
     if (args.length >= 1 && args[0].type === 'Identifier') {
@@ -125,7 +125,7 @@ module.exports = (report, options) => ({
       report({
         node: args[0],
         message: ruleMessage(bpkSubstitute),
-        fix: fixer =>
+        fix: (fixer) =>
           fixAndMaybeImport(
             fixer,
             options[0],
@@ -140,7 +140,7 @@ module.exports = (report, options) => ({
     }
   },
 
-  JSXElement: node => {
+  JSXElement: (node) => {
     const { openingElement, closingElement } = node;
     const bpkSubstitute = BPK_SUBSTITUTES[openingElement.name.name];
     if (!bpkSubstitute) {
@@ -151,7 +151,7 @@ module.exports = (report, options) => ({
       node: openingElement,
       message: ruleMessage(bpkSubstitute),
       fix(fixer) {
-        const fixIt = toFix => fixer.replaceText(toFix.name, bpkSubstitute);
+        const fixIt = (toFix) => fixer.replaceText(toFix.name, bpkSubstitute);
         const fixes = openingElement.selfClosing
           ? fixIt(openingElement)
           : [fixIt(openingElement), fixIt(closingElement)];
