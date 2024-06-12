@@ -87,13 +87,13 @@ ruleTester.run('use-tokens', useTokens, {
       code: `
     const styles = StyleSheet.create({
       foo: {
-        color: 'rgba(0, 0, 0, 0.8)',
+        color: 'rgb(161, 238, 255)',
       },
     });`,
       errors: [
         {
           message:
-            'Use the following Backpack token instead: privateMapMarkerViewedForegroundNight',
+            'Use the following Backpack token instead: marcommsBlueBright',
         },
       ],
     },
