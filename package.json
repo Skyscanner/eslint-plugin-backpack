@@ -36,6 +36,6 @@
     "eslint": "^8.57.0",
     "eslint-plugin-prettier": "^5.2.1",
     "mocha": "^11.0.1",
-    "prettier": "^3.4.2"
+    "prettier": "^3.5.2"
   }
 }
