@@ -21,7 +21,7 @@ const { RuleTester } = require('eslint');
 const useTokens = require('./use-tokens');
 
 const ruleTester = new RuleTester({
-  parserOptions: { sourceType: 'module', ecmaVersion: 2015 },
+  languageOptions: { sourceType: 'module', ecmaVersion: 2015 },
 });
 
 ruleTester.run('use-tokens', useTokens, {

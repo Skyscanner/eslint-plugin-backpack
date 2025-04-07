@@ -22,9 +22,7 @@ const { addImport, getImportDefinition } = require('./auto-import');
 // Dummy rule that executes the autoImport logic
 // for `dummy` and `extraDummy` variables.
 const dummyRule = {
-  meta: {
-    fixable: 'code',
-  },
+  meta: { fixable: 'code' },
   create(context) {
     const { report, options } = context;
 
@@ -54,7 +52,10 @@ const dummyRule = {
 };
 
 const ruleTester = new RuleTester({
-  parserOptions: { ecmaVersion: 2015, sourceType: 'module' },
+  languageOptions: {
+    ecmaVersion: 2015,
+    sourceType: 'module',
+  },
 });
 
 ruleTester.run('addImport', dummyRule, {
