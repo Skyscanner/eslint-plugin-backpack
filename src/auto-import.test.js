@@ -24,7 +24,18 @@ const { addImport, getImportDefinition } = require('./auto-import');
 const dummyRule = {
   meta: {
     fixable: 'code',
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          style: {
+            type: 'string',
+          },
+        },
+      },
+    ],
   },
+
   create(context) {
     const { report, options } = context;
 
@@ -54,7 +65,10 @@ const dummyRule = {
 };
 
 const ruleTester = new RuleTester({
-  parserOptions: { ecmaVersion: 2015, sourceType: 'module' },
+  languageOptions: {
+    ecmaVersion: 2015,
+    sourceType: 'module',
+  },
 });
 
 ruleTester.run('addImport', dummyRule, {

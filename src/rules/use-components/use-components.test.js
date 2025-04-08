@@ -21,10 +21,12 @@ const { RuleTester } = require('eslint');
 const useComponents = require('./use-components');
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 2015,
-    ecmaFeatures: { jsx: true },
     sourceType: 'module',
+    parserOptions: {
+      ecmaFeatures: { jsx: true },
+    },
   },
 });
 
