@@ -24,15 +24,16 @@ const { addImport, getImportDefinition } = require('./auto-import');
 const dummyRule = {
   meta: {
     fixable: 'code',
-    schema: {
-      type: 'array',
-      properties: {
-        someOptionalProperty: {
-          type: 'string',
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          style: {
+            type: 'string',
+          },
         },
       },
-      additionalProperties: false,
-    },
+    ],
   },
 
   create(context) {
@@ -89,7 +90,7 @@ ruleTester.run('addImport', dummyRule, {
       },
     });`,
     {
-      options: ['error', { style: 'default' }],
+      options: [{ style: 'default' }],
       code: `
         import dummy from 'dummy';
 
