@@ -88,3 +88,38 @@ Will prevent the usage of built-in components when a Backpack option is availabl
   }
 }
 ```
+
+### use-button-v2
+
+Prevents importing the deprecated `BpkButton` (V1) from `@skyscanner/backpack-web/bpk-component-button` and recommends using `BpkButtonV2` (V2) instead. This rule is part of the Design System modernization effort to migrate to the new button component which offers a smaller footprint, cleaner API, and better long-term maintainability.
+
+The rule will report an error for any import of `BpkButton` from the target package, whether it's a default import or named import.
+
+#### Configuration
+
+This rule has no configuration options.
+
+```json
+{
+  "rules": {
+    "backpack/use-button-v2": 2
+  }
+}
+```
+
+#### Examples
+
+**Invalid:**
+```javascript
+// Default import
+import BpkButton from '@skyscanner/backpack-web/bpk-component-button';
+
+// Named import
+import { BpkButton } from '@skyscanner/backpack-web/bpk-component-button';
+```
+
+**Valid:**
+```javascript
+// Use BpkButtonV2 instead
+import { BpkButtonV2 } from '@skyscanner/backpack-web/bpk-component-button';
+```
