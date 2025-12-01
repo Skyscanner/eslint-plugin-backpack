@@ -16,12 +16,14 @@
  * limitations under the License.
  */
 
+const noClassnameAssign = require('./src/rules/no-classname-assign');
 const useTokens = require('./src/rules/use-tokens/use-tokens');
 const useComponents = require('./src/rules/use-components/use-components');
 const useButtonV2 = require('./src/rules/use-button-v2/use-button-v2');
 
 module.exports = {
   rules: {
+    'no-classname-assign': noClassnameAssign,
     'use-tokens': useTokens,
     'use-components': useComponents,
     'use-button-v2': useButtonV2,
