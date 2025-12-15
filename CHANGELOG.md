@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 7.2.0
 
-### Added
-- Remove `use-button-v2` rule, as previous BpkButton (V1) has already removed, BpkButtonV2 renamed to BpkButton and exported default.
+### Removed
+- Remove `use-button-v2` rule, as previous BpkButton (V1) has already been removed, BpkButtonV2 renamed to BpkButton and exported default.
 
 ## 7.1.0
 
