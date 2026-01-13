@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 7.2.0
+
+### Removed
+- Remove `use-button-v2` rule, as previous BpkButton (V1) has already been removed, BpkButtonV2 renamed to BpkButton and exported default.
+
+## 7.1.0
+
+### Added
+- Added `use-button-v2` rule to enforce migration from `BpkButton` (V1) to `BpkButtonV2` (V2). The rule prevents importing `BpkButton` from `@skyscanner/backpack-web/bpk-component-button` and recommends using `BpkButtonV2` instead.
+
 ## 5.0.0
 
 - Update from `babel-parser` to `@babel/eslint-parser`

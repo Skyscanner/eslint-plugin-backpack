@@ -88,3 +88,20 @@ Will prevent the usage of built-in components when a Backpack option is availabl
   }
 }
 ```
+
+#### Examples
+
+**Invalid:**
+```javascript
+// Default import
+import BpkButton from '@skyscanner/backpack-web/bpk-component-button';
+
+// Named import
+import { BpkButton } from '@skyscanner/backpack-web/bpk-component-button';
+```
+
+**Valid:**
+```javascript
+// Use BpkButtonV2 instead
+import { BpkButtonV2 } from '@skyscanner/backpack-web/bpk-component-button';
+```
