@@ -59,9 +59,11 @@ jobs:
           ref: main
           persist-credentials: false
 
+      # Node 24 ships npm >= 11.5.1, which is required for trusted publishing
+      # (OIDC). Only the release job needs it; tests still use the .nvmrc Node.
       - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
-          node-version-file: '.nvmrc'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Restore Cache
@@ -71,11 +73,6 @@ jobs:
           path: |
             node_modules/
           key: ${{ env.CACHE_NAME }}-${{ hashFiles('package-lock.json') }}
-
-      # Trusted publishing (OIDC) requires npm >= 11.5.1; the version bundled
-      # with the .nvmrc Node release is older, so pin an npm that supports it.
-      - name: Upgrade npm for trusted publishing
-        run: npm install -g npm@11.5.1
 
       - name: Publish NPM package
         run: |
