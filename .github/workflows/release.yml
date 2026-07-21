@@ -52,6 +52,7 @@ jobs:
     needs: [Create-NPM-Cache, Run-Tests]
     permissions:
       id-token: write # Enables OIDC trusted publishing to NPM
+      contents: read # Required for actions/checkout after narrowing permissions
     steps:
       - name: Checkout source code
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
