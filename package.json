@@ -37,5 +37,10 @@
     "eslint-plugin-prettier": "^5.5.1",
     "mocha": "^11.7.1",
     "prettier": "^3.7.4"
+  },
+  "overrides": {
+    "mocha": {
+      "diff": "^8.0.4"
+    }
   }
 }
