@@ -21,10 +21,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false # Avoid cache-poisoning risk in the release workflow
 
       - name: Upload to Cache
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
@@ -50,6 +51,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: Publishing
     needs: [Create-NPM-Cache, Run-Tests]
+    permissions:
+      id-token: write # Enables OIDC trusted publishing to NPM
+      contents: read # Required for actions/checkout after narrowing permissions
     steps:
       - name: Checkout source code
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -57,10 +61,13 @@ jobs:
           ref: main
           persist-credentials: false
 
+      # .nvmrc pins Node 24 (lts/krypton), which ships npm >= 11.5.1 as
+      # required for trusted publishing (OIDC).
       - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false # Avoid cache-poisoning risk in the release workflow
 
       - name: Restore Cache
         uses: actions/cache/restore@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
@@ -73,7 +80,10 @@ jobs:
       - name: Publish NPM package
         run: |
           npm version $RELEASE_VERSION --no-git-tag-version
-          npm publish
+          npm publish --provenance
         env:
+          # Retained as a temporary fallback: npm prefers OIDC (trusted
+          # publishing) and only falls back to this token if OIDC is
+          # unavailable. Remove once the first OIDC release is verified.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
